@@ -1,0 +1,119 @@
+---
+// TechStack.astro — Skills and technology grid
+// TODO: Replace placeholder items with Dennis's actual stack once confirmed
+
+interface TechItem {
+  name: string;
+  icon: string; // devicon class name
+  category: 'language' | 'framework' | 'database' | 'tool';
+}
+
+// PLACEHOLDER — replace with Dennis's actual tech stack
+const techItems: TechItem[] = [
+  // Languages (examples — to be confirmed)
+  { name: 'Java', icon: 'devicon-java-plain', category: 'language' },
+  { name: 'JavaScript', icon: 'devicon-javascript-plain', category: 'language' },
+  { name: 'TypeScript', icon: 'devicon-typescript-plain', category: 'language' },
+  { name: 'SQL', icon: 'devicon-mysql-plain', category: 'language' },
+  // Frameworks (examples — to be confirmed)
+  { name: 'Spring', icon: 'devicon-spring-plain', category: 'framework' },
+  { name: 'React', icon: 'devicon-react-original', category: 'framework' },
+  // Databases (examples — to be confirmed)
+  { name: 'PostgreSQL', icon: 'devicon-postgresql-plain', category: 'database' },
+  { name: 'MySQL', icon: 'devicon-mysql-original', category: 'database' },
+  // Tools (examples — to be confirmed)
+  { name: 'Git', icon: 'devicon-git-plain', category: 'tool' },
+  { name: 'Docker', icon: 'devicon-docker-plain', category: 'tool' },
+  { name: 'Linux', icon: 'devicon-linux-plain', category: 'tool' },
+  { name: 'VS Code', icon: 'devicon-vscode-plain', category: 'tool' },
+];
+
+const categories = [
+  { key: 'language', label: 'Sprachen' },
+  { key: 'framework', label: 'Frameworks' },
+  { key: 'database', label: 'Datenbanken' },
+  { key: 'tool', label: 'Tools' },
+] as const;
+---
+
+<!-- devicons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
+
+<section id="technologien">
+  <div class="container">
+    <h2 class="section-title">Technologien</h2>
+    <p class="section-subtitle">Womit ich täglich arbeite</p>
+
+    <div class="tech-categories">
+      {categories.map(cat => {
+        const items = techItems.filter(t => t.category === cat.key);
+        if (items.length === 0) return null;
+        return (
+          <div class="tech-category">
+            <h3 class="category-label">{cat.label}</h3>
+            <div class="tech-grid">
+              {items.map(item => (
+                <div class="tech-item">
+                  <i class={`${item.icon} colored`}></i>
+                  <span>{item.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .category-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tech-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .tech-item:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .tech-item i {
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 480px) {
+    .tech-item {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.75rem;
+    }
+  }
+</style>

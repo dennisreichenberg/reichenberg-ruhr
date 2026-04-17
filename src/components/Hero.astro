@@ -1,0 +1,111 @@
+---
+// Hero.astro — Opening section with name, tagline, and CTAs
+const hasProfileImage = true;
+---
+
+<section id="hero" class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="hero-greeting">Hallo, ich bin</p>
+      <h1 class="hero-name">Dennis Reichenberg</h1>
+      <p class="hero-tagline">Softwareentwickler im Ruhrgebiet</p>
+      <p class="hero-description">
+        13+ Jahre Erfahrung in der Entwicklung robuster, wartbarer Software.<br>
+        Aktuell tätig als Software Developer bei VU.SOLUTIONS.
+      </p>
+      <div class="hero-cta">
+        <a href="#kontakt" class="btn btn-primary">Kontakt aufnehmen</a>
+        <a href="https://linkedin.com/in/dennisreichenberg" target="_blank" rel="noopener" class="btn btn-outline">
+          LinkedIn →
+        </a>
+      </div>
+    </div>
+    {hasProfileImage && (
+      <div class="hero-image">
+        <img src="/profile.jpg" alt="Dennis Reichenberg" width="240" height="240" />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    padding: 5rem 0 4rem;
+    background: radial-gradient(ellipse at 70% 40%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+  }
+
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    justify-content: space-between;
+  }
+
+  .hero-text {
+    flex: 1;
+    max-width: 600px;
+  }
+
+  .hero-greeting {
+    font-size: 1rem;
+    color: var(--color-accent);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-name {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    letter-spacing: -0.02em;
+    color: #f8fafc;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-tagline {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-image img {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-border);
+  }
+
+  @media (max-width: 640px) {
+    .hero-inner {
+      flex-direction: column-reverse;
+      text-align: center;
+    }
+
+    .hero-cta {
+      justify-content: center;
+    }
+
+    .hero-image img {
+      width: 160px;
+      height: 160px;
+    }
+  }
+</style>

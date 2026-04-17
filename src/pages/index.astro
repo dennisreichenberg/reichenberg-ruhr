@@ -1,0 +1,88 @@
+---
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import TechStack from '../components/TechStack.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const title = 'Dennis Reichenberg – Softwareentwickler NRW';
+const description = 'Software Developer aus dem Ruhrgebiet mit 13+ Jahren Erfahrung in der Entwicklung robuster, wartbarer Software. Kontakt: dennis@reichenberg.ruhr';
+const url = 'https://reichenberg.ruhr/';
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Dennis Reichenberg" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={url} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:image" content={`${url}profile.jpg`} />
+    <meta property="og:image:width" content="240" />
+    <meta property="og:image:height" content="240" />
+    <meta name="twitter:image" content={`${url}profile.jpg`} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Structured Data (Person) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Dennis Reichenberg",
+        "jobTitle": "Softwareentwickler",
+        "url": "https://reichenberg.ruhr",
+        "email": "dennis@reichenberg.ruhr",
+        "address": {
+          "@type": "PostalAddress",
+          "addressRegion": "Nordrhein-Westfalen",
+          "addressCountry": "DE"
+        },
+        "sameAs": [
+          "https://linkedin.com/in/dennisreichenberg",
+          "https://www.xing.com/profile/Dennis_Reichenberg4"
+        ]
+      }
+    </script>
+
+    <!-- Favicon placeholder (replace with actual favicon) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <Nav />
+    <main>
+      <Hero />
+      <hr class="section-divider" />
+      <About />
+      <hr class="section-divider" />
+      <TechStack />
+      <hr class="section-divider" />
+      <Contact />
+    </main>
+    <Footer />
+  </body>
+</html>
