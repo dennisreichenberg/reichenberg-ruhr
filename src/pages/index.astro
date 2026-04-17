@@ -32,7 +32,10 @@ const url = 'https://reichenberg.ruhr/';
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="de_DE" />
-    <!-- og:image: add once profile.jpg is available -->
+    <meta property="og:image" content={`${url}profile.jpg`} />
+    <meta property="og:image:width" content="240" />
+    <meta property="og:image:height" content="240" />
+    <meta name="twitter:image" content={`${url}profile.jpg`} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
