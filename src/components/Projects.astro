@@ -1,0 +1,243 @@
+---
+interface Project {
+  name: string;
+  description: string;
+  install?: string;
+  pypiUrl?: string;
+  githubUrl?: string;
+  category: 'oss' | 'internal';
+}
+
+const projects: Project[] = [
+  {
+    name: 'ollama-commit',
+    description: 'Generiert automatisch aussagekraeftige Git-Commit-Nachrichten mit lokalen LLMs ueber Ollama.',
+    install: 'pip install ollama-commit',
+    pypiUrl: 'https://pypi.org/project/ollama-commit/',
+    githubUrl: 'https://github.com/amokK89/weiterentwicklung/tree/main/ollama-commit',
+    category: 'oss',
+  },
+  {
+    name: 'local-rag',
+    description: 'Lokales Retrieval-Augmented-Generation-System -- Dokumente indexieren und mit lokalen LLMs befragen.',
+    install: 'pip install local-rag',
+    pypiUrl: 'https://pypi.org/project/local-rag/',
+    githubUrl: 'https://github.com/amokK89/weiterentwicklung/tree/main/local-rag',
+    category: 'oss',
+  },
+  {
+    name: 'devlog',
+    description: 'AI-Entwicklertagebuch: Arbeit protokollieren, woechentliche Zusammenfassungen und PR-Beschreibungen mit lokalen LLMs generieren.',
+    install: 'pip install devlog',
+    pypiUrl: 'https://pypi.org/project/devlog/',
+    githubUrl: 'https://github.com/amokK89/weiterentwicklung/tree/main/devlog',
+    category: 'oss',
+  },
+  {
+    name: 'vllm-monitor',
+    description: 'Echtzeit-Terminal-Dashboard zur Ueberwachung von vLLM-Server-Metriken.',
+    install: 'pip install vllm-monitor',
+    pypiUrl: 'https://pypi.org/project/vllm-monitor/',
+    githubUrl: 'https://github.com/amokK89/weiterentwicklung/tree/main/vllm-monitor',
+    category: 'oss',
+  },
+  {
+    name: 'model-manager',
+    description: 'Einheitliche Ollama-Modellverwaltung -- lokale Modelle auflisten, herunterladen, entfernen und taggen.',
+    install: 'pip install model-manager',
+    pypiUrl: 'https://pypi.org/project/model-manager/',
+    githubUrl: 'https://github.com/amokK89/weiterentwicklung/tree/main/model-manager',
+    category: 'oss',
+  },
+  {
+    name: 'Internes ERP-Modul',
+    description: 'Erweiterung des firmeninternen ERP-Systems mit Automatisierungen fuer Auftragsverarbeitung und Berichtswesen.',
+    category: 'internal',
+  },
+  {
+    name: 'Automatisiertes Datenpipeline-Tool',
+    description: 'ETL-Pipeline zur automatisierten Verarbeitung und Bereinigung von Produktions- und Vertriebsdaten.',
+    category: 'internal',
+  },
+  {
+    name: 'Self-hosted KI-Infrastruktur',
+    description: 'Aufbau und Betrieb einer lokalen KI-Infrastruktur mit Ollama, vLLM und Open WebUI auf eigener Hardware.',
+    category: 'internal',
+  },
+];
+
+const ossProjects = projects.filter(p => p.category === 'oss');
+const internalProjects = projects.filter(p => p.category === 'internal');
+---
+
+<section id="projekte">
+  <div class="container">
+    <h2 class="section-title">Projekte</h2>
+    <p class="section-subtitle">Open-Source-Tools & eigene Entwicklungen</p>
+
+    <div class="projects-group">
+      <h3 class="group-label">Open-Source Tools</h3>
+      <div class="projects-grid">
+        {ossProjects.map(project => (
+          <article class="project-card">
+            <div class="project-header">
+              <h4 class="project-name">{project.name}</h4>
+              <div class="project-links">
+                {project.pypiUrl && (
+                  <a href={project.pypiUrl} target="_blank" rel="noopener" class="badge badge-pypi" title="PyPI">
+                    PyPI
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a href={project.githubUrl} target="_blank" rel="noopener" class="badge badge-github" title="GitHub">
+                    GitHub
+                  </a>
+                )}
+              </div>
+            </div>
+            <p class="project-description">{project.description}</p>
+            {project.install && (
+              <div class="install-block">
+                <code class="install-cmd">{project.install}</code>
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="projects-group">
+      <h3 class="group-label">Weitere Projekte</h3>
+      <div class="projects-grid">
+        {internalProjects.map(project => (
+          <article class="project-card project-card--internal">
+            <h4 class="project-name">{project.name}</h4>
+            <p class="project-description">{project.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
+
+  .projects-group {
+    margin-bottom: 3rem;
+  }
+
+  .projects-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .group-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .project-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .project-card--internal {
+    opacity: 0.8;
+  }
+
+  .project-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .project-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    line-height: 1.3;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    letter-spacing: 0.03em;
+    transition: opacity 0.2s ease;
+  }
+
+  .badge:hover {
+    opacity: 0.8;
+  }
+
+  .badge-pypi {
+    background: #3b4fe4;
+    color: #fff;
+  }
+
+  .badge-github {
+    background: var(--color-border);
+    color: var(--color-text);
+  }
+
+  .project-description {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .install-block {
+    margin-top: auto;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 0.4rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .install-cmd {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.82rem;
+    color: var(--color-accent-hover);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 600px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
