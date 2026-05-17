@@ -8,9 +8,10 @@
   --color-border: #2a2d3a;
   --color-text: #e2e8f0;
   --color-text-muted: #94a3b8;
-  --color-accent: #3b82f6;
-  --color-accent-hover: #60a5fa;
+  --color-accent: #d97706;
+  --color-accent-hover: #f59e0b;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   --max-width: 860px;
   --section-gap: 6rem;
 }
@@ -59,6 +60,10 @@ h1, h2, h3 {
   font-weight: 700;
   line-height: 1.2;
   color: #f1f5f9;
+}
+
+code, .font-mono {
+  font-family: var(--font-mono);
 }
 
 h2.section-title {

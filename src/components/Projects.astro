@@ -73,7 +73,7 @@ const internalProjects = projects.filter(p => p.category === 'internal');
 <section id="projekte">
   <div class="container">
     <h2 class="section-title">Projekte</h2>
-    <p class="section-subtitle">Open-Source-Tools & eigene Entwicklungen</p>
+    <p class="section-subtitle">Was ich baue und veroeffentliche</p>
 
     <div class="projects-group">
       <h3 class="group-label">Open-Source Tools</h3>
@@ -136,11 +136,10 @@ const internalProjects = projects.filter(p => p.category === 'internal');
   }
 
   .group-label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
     margin-bottom: 1.25rem;
   }
 
@@ -204,7 +203,7 @@ const internalProjects = projects.filter(p => p.category === 'internal');
   }
 
   .badge-pypi {
-    background: #3b4fe4;
+    background: #d97706;
     color: #fff;
   }
 
@@ -229,7 +228,7 @@ const internalProjects = projects.filter(p => p.category === 'internal');
   }
 
   .install-cmd {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-mono);
     font-size: 0.82rem;
     color: var(--color-accent-hover);
     white-space: nowrap;
