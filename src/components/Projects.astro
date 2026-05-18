@@ -73,7 +73,7 @@ const internalProjects = projects.filter(p => p.category === 'internal');
 <section id="projekte">
   <div class="container">
     <h2 class="section-title">Projekte</h2>
-    <p class="section-subtitle">Open-Source-Tools & eigene Entwicklungen</p>
+    <p class="section-subtitle">Was ich baue und veroeffentliche</p>
 
     <div class="projects-group">
       <h3 class="group-label">Open-Source Tools</h3>
@@ -136,11 +136,10 @@ const internalProjects = projects.filter(p => p.category === 'internal');
   }
 
   .group-label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
     margin-bottom: 1.25rem;
   }
 
@@ -163,7 +162,6 @@ const internalProjects = projects.filter(p => p.category === 'internal');
 
   .project-card:hover {
     border-color: var(--color-accent);
-    transform: translateY(-2px);
   }
 
   .project-card--internal {
@@ -180,7 +178,7 @@ const internalProjects = projects.filter(p => p.category === 'internal');
   .project-name {
     font-size: 1rem;
     font-weight: 600;
-    color: #f1f5f9;
+    color: #e8e4dc;
     line-height: 1.3;
   }
 
@@ -204,7 +202,7 @@ const internalProjects = projects.filter(p => p.category === 'internal');
   }
 
   .badge-pypi {
-    background: #3b4fe4;
+    background: var(--color-accent);
     color: #fff;
   }
 
@@ -229,10 +227,15 @@ const internalProjects = projects.filter(p => p.category === 'internal');
   }
 
   .install-cmd {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-mono);
     font-size: 0.82rem;
     color: var(--color-accent-hover);
     white-space: nowrap;
+  }
+
+  .install-cmd::before {
+    content: '$ ';
+    color: var(--color-text-muted);
   }
 
   @media (max-width: 600px) {

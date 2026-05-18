@@ -122,7 +122,7 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
     <!-- Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   </head>
 
   <body>
@@ -140,8 +140,6 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
           </div>
         </div>
       </section>
-
-      <hr class="section-divider" />
 
       <!-- Leistungen -->
       <section id="leistungen" class="lp-section">
@@ -193,8 +191,6 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
         </div>
       </section>
 
-      <hr class="section-divider" />
-
       <!-- Tech-Stack -->
       <section id="tech-stack" class="lp-section">
         <div class="container">
@@ -219,8 +215,6 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
           </div>
         </div>
       </section>
-
-      <hr class="section-divider" />
 
       <!-- Warum lokal -->
       <section id="warum-lokal" class="lp-section">
@@ -252,8 +246,6 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
           </p>
         </div>
       </section>
-
-      <hr class="section-divider" />
 
       <!-- Projektablauf -->
       <section id="projektablauf" class="lp-section">
@@ -289,8 +281,6 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
         </div>
       </section>
 
-      <hr class="section-divider" />
-
       <!-- FAQ -->
       <section id="faq" class="lp-section">
         <div class="container">
@@ -321,8 +311,6 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
           </div>
         </div>
       </section>
-
-      <hr class="section-divider" />
 
       <!-- CTA / Contact -->
       <section id="kontakt-muelheim" class="lp-section lp-cta-section">
@@ -364,13 +352,13 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
   /* ---- Landing Page Hero ---- */
   .lp-hero {
     padding: 8rem 0 5rem;
-    background: radial-gradient(ellipse at 70% 40%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+    background: none;
   }
 
   .lp-hero-title {
     font-size: clamp(2rem, 5vw, 3rem);
     letter-spacing: -0.02em;
-    color: #f8fafc;
+    color: #e8e4dc;
     margin-bottom: 1.5rem;
   }
 
@@ -392,8 +380,8 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
   @media (prefers-reduced-motion: no-preference) {
     .lp-section {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .lp-section.is-visible {
@@ -419,7 +407,6 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
 
   .service-card:hover {
     border-color: var(--color-accent);
-    transform: translateY(-2px);
   }
 
   .service-icon {
@@ -552,7 +539,7 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
     padding: 1.25rem 1.5rem;
     font-size: 1rem;
     font-weight: 600;
-    color: #f1f5f9;
+    color: #e8e4dc;
     cursor: pointer;
     list-style: none;
     display: flex;
@@ -590,11 +577,6 @@ const url = 'https://reichenberg.ruhr/softwareentwickler-muelheim/';
 
   .lp-cta-section .section-title {
     display: block;
-  }
-
-  .lp-cta-section .section-title::after {
-    margin-left: auto;
-    margin-right: auto;
   }
 
   .cta-text {

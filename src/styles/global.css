@@ -3,16 +3,17 @@
    ============================================================ */
 
 :root {
-  --color-bg: #0f1117;
-  --color-bg-card: #1a1d27;
-  --color-border: #2a2d3a;
-  --color-text: #e2e8f0;
-  --color-text-muted: #94a3b8;
-  --color-accent: #3b82f6;
-  --color-accent-hover: #60a5fa;
+  --color-bg: #0c0c0b;
+  --color-bg-card: #151514;
+  --color-border: #252420;
+  --color-text: #dedad0;
+  --color-text-muted: #8c877b;
+  --color-accent: #cb6d1d;
+  --color-accent-hover: #e28533;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
   --max-width: 860px;
-  --section-gap: 6rem;
+  --section-gap: 5rem;
 }
 
 *, *::before, *::after {
@@ -58,29 +59,24 @@ section {
 h1, h2, h3 {
   font-weight: 700;
   line-height: 1.2;
-  color: #f1f5f9;
+  color: #e8e4dc;
+}
+
+code, .font-mono {
+  font-family: var(--font-mono);
 }
 
 h2.section-title {
-  font-size: 1.75rem;
-  margin-bottom: 0.5rem;
-  position: relative;
-  display: inline-block;
-}
-
-h2.section-title::after {
-  content: '';
-  display: block;
-  width: 3rem;
-  height: 3px;
-  background: var(--color-accent);
-  margin-top: 0.5rem;
-  border-radius: 2px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.01em;
 }
 
 .section-subtitle {
   color: var(--color-text-muted);
-  font-size: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   margin-bottom: 2.5rem;
 }
 
@@ -135,8 +131,8 @@ hr.section-divider {
   #projekte,
   #kontakt {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
 
   #ueber-mich.is-visible,
@@ -151,10 +147,10 @@ hr.section-divider {
 /* ---- Responsive ---- */
 @media (max-width: 640px) {
   :root {
-    --section-gap: 4rem;
+    --section-gap: 3.5rem;
   }
 
   h2.section-title {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
   }
 }
