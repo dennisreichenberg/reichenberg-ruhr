@@ -3,40 +3,25 @@
 
 <section class="section" id="about" data-id="#01 / über mich">
   <div class="container">
-    <div class="section-head">
-      <div class="left">
-        <span class="eyebrow">01 — Über mich</span>
-        <h2>Wie ich hier <em>gelandet bin.</em></h2>
-      </div>
-      <div class="right">Sektion 01 / 04</div>
-    </div>
+    <h2 class="section-title">Über mich</h2>
+    <p class="section-subtitle">Wie ich hierher gekommen bin</p>
 
     <div class="about-grid">
-      <div>
-        <div class="about-portrait" aria-label="Portrait Dennis Reichenberg"></div>
-        <div class="about-bio">
-          <p>
-            Ich schreib seit über 13 Jahren Software — von der Sorte, die nicht alle zwei Jahre
-            neu gemacht werden muss. Angefangen als Azubi bei der Fuhlrott-Datenverarbeitung OHG
-            in Düsseldorf, da hab ich gelernt, was sauberes Backend bedeutet. Schritt für Schritt
-            mehr Verantwortung übernommen, zuletzt als Abteilungsleiter Software.
-          </p>
-          <p>
-            Vom Stack her bin ich Full-Stack — Frontend kann ich, mach ich auch. So richtig glücklich
-            werd ich aber im Backend: bei Datenflüssen, APIs und Infrastruktur, die einfach läuft.
-            Da, wo's keinen interessiert wie's aussieht, sondern nur ob's tut.
-          </p>
-          <p>
-            Seit September 2023 Software Developer bei <a href="https://vu-solutions.de">VU.SOLUTIONS GmbH &amp; Co. KG</a>
-            und knietief in selfhosted KI-Infrastruktur. Ollama, vLLM, Open WebUI — alles auf
-            eigener Hardware. Cloud-LLMs sind praktisch, aber ein Server, der die Daten im Haus behält,
-            hat seinen eigenen Reiz.
-          </p>
-          <p>
-            Ich leb und arbeite in Mülheim an der Ruhr. Wenn ich nicht code, schreib ich Open-Source-Tools
-            für mein eigenes Setup und stell sie auf PyPI und GitHub — vielleicht braucht's ja noch jemand.
-          </p>
-        </div>
+      <div class="about-text">
+        <img src="/profile.jpg" alt="Dennis Reichenberg" width="80" height="80" class="about-photo" />
+        <p>
+          Ich entwickle seit über 13 Jahren Software, die funktioniert — und langfristig
+          wartbar bleibt. Angefangen habe ich als Auszubildender bei der Fuhlrott-Datenverarbeitung OHG, wo ich
+          Schritt für Schritt mehr Verantwortung übernommen habe, zuletzt als Abteilungsleiter Software.
+        </p>
+        <p>
+          Seit September 2023 bin ich als Software Developer bei
+          <a href="https://vu-solutions.de" target="_blank" rel="noopener">VU.SOLUTIONS GmbH & Co. KG</a> tätig
+          und beschäftige mich intensiv mit Selfhosted-KI-Infrastruktur.
+        </p>
+        <p>
+          Ich lebe und arbeite im Ruhrgebiet — pragmatisch, direkt, lösungsorientiert.
+        </p>
       </div>
 
       <div>
@@ -61,3 +46,101 @@
     </div>
   </div>
 </section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    float: left;
+    margin-right: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-text p {
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+  }
+
+  .about-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Timeline */
+  .career-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+    padding-bottom: 1.75rem;
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 14px;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-border);
+  }
+
+  .timeline-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .timeline-date {
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  .timeline-content strong {
+    color: #e8e4dc;
+    font-size: 0.95rem;
+  }
+
+  .timeline-company {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

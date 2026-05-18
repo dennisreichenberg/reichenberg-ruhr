@@ -4,7 +4,7 @@
 
 Hosting: **GitHub Pages** (kostenlos, HTTPS automatisch)
 DNS: **IONOS** (Domain reichenberg.ruhr, E-Mail bleibt unberührt)
-Repo: https://github.com/amokK89/reichenberg-ruhr
+Repo: https://github.com/dennisreichenberg/reichenberg-ruhr
 
 ---
 
@@ -36,7 +36,7 @@ Im IONOS-Kundencenter → Domains → reichenberg.ruhr → DNS:
 
 | Typ   | Name | Wert               | TTL  |
 |-------|------|--------------------|------|
-| CNAME | www  | amokK89.github.io  | 3600 |
+| CNAME | www  | dennisreichenberg.github.io  | 3600 |
 
 > **Wichtig:** Bestehende MX-Records für E-Mail NICHT anfassen.
 > Den alten XING-Redirect-Record löschen (falls als A- oder CNAME-Record vorhanden).

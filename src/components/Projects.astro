@@ -1,15 +1,133 @@
 ---
+interface Project {
+  name: string;
+  description: string;
+  install?: string;
+  pypiUrl?: string;
+  githubUrl?: string;
+  category: 'oss' | 'internal';
+}
+
+const projects: Project[] = [
+  {
+    name: 'ollama-commit',
+    description: 'Generiert automatisch aussagekraeftige Git-Commit-Nachrichten mit lokalen LLMs ueber Ollama.',
+    install: 'pip install ollama-commit',
+    pypiUrl: 'https://pypi.org/project/ollama-commit/',
+    githubUrl: 'https://github.com/dennisreichenberg/ollama-commit',
+    category: 'oss',
+  },
+  {
+    name: 'local-rag',
+    description: 'Lokales Retrieval-Augmented-Generation-System -- Dokumente indexieren und mit lokalen LLMs befragen.',
+    install: 'pip install local-rag',
+    pypiUrl: 'https://pypi.org/project/local-rag/',
+    githubUrl: 'https://github.com/dennisreichenberg/local-rag',
+    category: 'oss',
+  },
+  {
+    name: 'devlog',
+    description: 'AI-Entwicklertagebuch: Arbeit protokollieren, woechentliche Zusammenfassungen und PR-Beschreibungen mit lokalen LLMs generieren.',
+    install: 'pip install devlog',
+    pypiUrl: 'https://pypi.org/project/devlog/',
+    githubUrl: 'https://github.com/dennisreichenberg/devlog',
+    category: 'oss',
+  },
+  {
+    name: 'vllm-monitor',
+    description: 'Echtzeit-Terminal-Dashboard zur Ueberwachung von vLLM-Server-Metriken.',
+    install: 'pip install vllm-monitor',
+    pypiUrl: 'https://pypi.org/project/vllm-monitor/',
+    githubUrl: 'https://github.com/dennisreichenberg/vllm-monitor',
+    category: 'oss',
+  },
+  {
+    name: 'model-manager',
+    description: 'Einheitliche Ollama-Modellverwaltung -- lokale Modelle auflisten, herunterladen, entfernen und taggen.',
+    install: 'pip install model-manager',
+    pypiUrl: 'https://pypi.org/project/model-manager/',
+    githubUrl: 'https://github.com/dennisreichenberg/model-manager',
+    category: 'oss',
+  },
+  {
+    name: 'ollama-tui',
+    description: 'Terminal-UI fuer den Chat mit lokalen Sprachmodellen ueber Ollama -- direkt im Terminal.',
+    githubUrl: 'https://github.com/dennisreichenberg/ollama-tui',
+    category: 'oss',
+  },
+  {
+    name: 'llm-bench',
+    description: 'Benchmark-Tool fuer lokale LLMs: misst Tokens pro Sekunde, Time-to-First-Token (TTFT) und VRAM-Verbrauch.',
+    githubUrl: 'https://github.com/dennisreichenberg/llm-bench',
+    category: 'oss',
+  },
+  {
+    name: 'llm-shell',
+    description: 'KI-gestuetzter Shell-Command-Suggester -- schlaegt passende Terminalbefehle basierend auf natuerlicher Sprache vor.',
+    githubUrl: 'https://github.com/dennisreichenberg/llm-shell',
+    category: 'oss',
+  },
+  {
+    name: 'prompt-lab',
+    description: 'Side-by-side Prompt-Testing: Prompts gleichzeitig ueber mehrere lokale Modelle testen und Ergebnisse vergleichen.',
+    githubUrl: 'https://github.com/dennisreichenberg/prompt-lab',
+    category: 'oss',
+  },
+  {
+    name: 'vllm-bench',
+    description: 'Benchmark-Tool fuer vLLM unter concurrent Load -- misst Durchsatz und Latenz bei parallelen Anfragen.',
+    githubUrl: 'https://github.com/dennisreichenberg/vllm-bench',
+    category: 'oss',
+  },
+  {
+    name: 'vllm-config',
+    description: 'Hardware-aware Konfigurations-Optimizer fuer vLLM -- generiert optimale Startparameter basierend auf der verfuegbaren Hardware.',
+    githubUrl: 'https://github.com/dennisreichenberg/vllm-config',
+    category: 'oss',
+  },
+  {
+    name: 'agent-runner',
+    description: 'CLI-basierter lokaler Agent-Loop mit Tool-Use via Ollama -- fuehrt autonome Aufgaben mit definierten Tools aus.',
+    githubUrl: 'https://github.com/dennisreichenberg/agent-runner',
+    category: 'oss',
+  },
+  {
+    name: 'ollama-proxy',
+    description: 'OpenAI-kompatibler API-Router fuer Ollama und vLLM -- bestehende OpenAI-Clients ohne Code-Aenderungen nutzen.',
+    githubUrl: 'https://github.com/dennisreichenberg/ollama-proxy',
+    category: 'oss',
+  },
+  {
+    name: 'model-eval',
+    description: 'Evaluierungs-Framework fuer LLM-Antwortqualitaet mit Exact-Match, Fuzzy-Matching und LLM-as-Judge-Metriken.',
+    githubUrl: 'https://github.com/dennisreichenberg/model-eval',
+    category: 'oss',
+  },
+  {
+    name: 'Internes ERP-Modul',
+    description: 'Erweiterung des firmeninternen ERP-Systems mit Automatisierungen fuer Auftragsverarbeitung und Berichtswesen.',
+    category: 'internal',
+  },
+  {
+    name: 'Automatisiertes Datenpipeline-Tool',
+    description: 'ETL-Pipeline zur automatisierten Verarbeitung und Bereinigung von Produktions- und Vertriebsdaten.',
+    category: 'internal',
+  },
+  {
+    name: 'Self-hosted KI-Infrastruktur',
+    description: 'Aufbau und Betrieb einer lokalen KI-Infrastruktur mit Ollama, vLLM und Open WebUI auf eigener Hardware.',
+    category: 'internal',
+  },
+];
+
+const ossProjects = projects.filter(p => p.category === 'oss');
+const internalProjects = projects.filter(p => p.category === 'internal');
 ---
 
 <section class="section" id="projects" data-id="#03 / projekte">
   <div class="container">
-    <div class="section-head">
-      <div class="left">
-        <span class="eyebrow">03 — Projekte</span>
-        <h2>Was ich <em>so bau</em> &amp; veröffentliche.</h2>
-      </div>
-      <div class="right">Open Source · PyPI · GitHub</div>
-    </div>
+    <h2 class="section-title">Projekte</h2>
+    <p class="section-subtitle">Was ich baue und veroeffentliche</p>
 
     <div class="project-group">
       <div class="project-group-label"><span>Open-Source Tools</span></div>
@@ -86,3 +204,128 @@
     </div>
   </div>
 </section>
+
+<style>
+  .section-subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
+
+  .projects-group {
+    margin-bottom: 3rem;
+  }
+
+  .projects-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .group-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .project-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .project-card--internal {
+    opacity: 0.8;
+  }
+
+  .project-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .project-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e8e4dc;
+    line-height: 1.3;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    letter-spacing: 0.03em;
+    transition: opacity 0.2s ease;
+  }
+
+  .badge:hover {
+    opacity: 0.8;
+  }
+
+  .badge-pypi {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .badge-github {
+    background: var(--color-border);
+    color: var(--color-text);
+  }
+
+  .project-description {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .install-block {
+    margin-top: auto;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 0.4rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .install-cmd {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--color-accent-hover);
+    white-space: nowrap;
+  }
+
+  .install-cmd::before {
+    content: '$ ';
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 600px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

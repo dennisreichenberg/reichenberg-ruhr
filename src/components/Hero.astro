@@ -1,50 +1,86 @@
 ---
+// Hero.astro — text-heavy opening, no photo
 ---
 
-<section class="hero" id="top">
+<section id="hero" class="hero">
   <div class="container">
-    <div class="hero-meta">
-      <div class="term-prompt" aria-hidden="true">
-        <div><span class="ps1">dennis@ruhrgebiet:~$</span><span class="cmd">whoami --verbose</span><span class="cursor"></span></div>
-        <div class="out">// developer profile geladen — siehe unten</div>
-      </div>
-    </div>
-
     <h1 class="hero-name">
-      <span>Dennis</span><br />
-      <span>Reichenberg</span>
+      Dennis<br />Reichenberg
     </h1>
-
-    <p class="hero-tagline">// Backend, das einfach läuft. Seit 2010, mitten im Pott.</p>
-
-    <p class="hero-bio">
-      <strong>Full-Stack-Entwickler mit Faible fürs Backend</strong> — 13+ Jahre auf der Uhr,
-      Delphi, Python, C#. Bei <strong>VU.SOLUTIONS</strong> schraub ich an selfhosted KI-Infrastruktur:
-      Ollama, vLLM, lokale RAG-Setups. Hardware steht im eigenen Rack, keine Cloud-Rechnung, kein Schnickschnack.
+    <p class="hero-tagline">Software, die laeuft. Seit 2010. Aus dem Ruhrgebiet.</p>
+    <p class="hero-description">
+      Backend-Entwickler mit 13+ Jahren Praxis in Delphi, Python und C#.
+      Aktuell bei VU.SOLUTIONS &mdash; Fokus auf Selfhosted KI-Infrastruktur.
     </p>
-
     <div class="hero-cta">
-      <a href="#contact" class="btn btn-primary">Kontakt aufnehmen <span class="arrow">→</span></a>
-      <a href="#projects" class="btn btn-ghost">Projekte ansehen</a>
-    </div>
-
-    <div class="hero-aside">
-      <div class="hero-stat" data-meta="STABIL">
-        <div class="hero-stat-label">jahre_praxis</div>
-        <div class="hero-stat-num">13+</div>
-      </div>
-      <div class="hero-stat" data-meta="PYPI">
-        <div class="hero-stat-label">open_source_tools</div>
-        <div class="hero-stat-num">4</div>
-      </div>
-      <div class="hero-stat" data-meta="RUHRGEBIET">
-        <div class="hero-stat-label">karriere_stationen</div>
-        <div class="hero-stat-num">3</div>
-      </div>
-      <div class="hero-stat" data-meta="WIRD_FORTGEFÜHRT">
-        <div class="hero-stat-label">git_commits</div>
-        <div class="hero-stat-num">∞</div>
-      </div>
+      <a href="#kontakt" class="btn btn-primary">Kontakt aufnehmen</a>
+      <a href="#projekte" class="btn btn-ghost">Projekte ansehen</a>
     </div>
   </div>
 </section>
+
+<style>
+  .hero {
+    padding: 8rem 0 5rem;
+  }
+
+  .hero-name {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-mono);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .hero-description {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    padding: 0.625rem 0;
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .btn-ghost:hover {
+    color: var(--color-text);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 5rem 0 3rem;
+    }
+
+    .hero-name {
+      font-size: clamp(2.5rem, 11vw, 3.5rem);
+    }
+  }
+</style>
