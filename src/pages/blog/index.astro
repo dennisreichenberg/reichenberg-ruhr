@@ -1,0 +1,218 @@
+---
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/global.css';
+
+const title = 'Blog – Dennis Reichenberg';
+const description = 'Artikel über Softwareentwicklung, Freelancing und Tech-Stack-Entscheidungen von Dennis Reichenberg – Freelance Developer aus dem Ruhrgebiet.';
+const url = 'https://reichenberg.ruhr/blog';
+
+const posts = [
+  {
+    title: 'Mein Stack als Freelance Developer 2026',
+    description: 'Welche Tools, Frameworks und Dienste ich täglich nutze – von Backend über Frontend bis DevOps. Kein Vergleichstest, nur mein echter Stack.',
+    date: '2026-05-17',
+    dateLabel: '17. Mai 2026',
+    slug: '/blog/mein-stack-freelance-developer-2026',
+    tags: ['TypeScript', 'Node.js', 'Next.js', 'Docker', 'DevOps'],
+  },
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Dennis Reichenberg" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={url} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="de_DE" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <Nav />
+    <main>
+      <section class="blog-index">
+        <div class="container">
+
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">d.reichenberg</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">blog</span>
+          </nav>
+
+          <header class="section-header">
+            <p class="eyebrow">Blog</p>
+            <h1 class="section-title">Artikel</h1>
+            <p class="section-lead">Notizen zu Tech-Stack-Entscheidungen, Freelancing-Alltag und Software-Entwicklung aus dem Ruhrgebiet.</p>
+          </header>
+
+          <ul class="post-list">
+            {posts.map((post) => (
+              <li class="post-item">
+                <a href={post.slug} class="post-link">
+                  <span class="post-date">{post.dateLabel}</span>
+                  <h2 class="post-title">{post.title}</h2>
+                  <p class="post-excerpt">{post.description}</p>
+                  <div class="post-tags">
+                    {post.tags.map((tag) => (
+                      <span class="tag">{tag}</span>
+                    ))}
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .blog-index {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .breadcrumb a {
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--ink);
+  }
+
+  .breadcrumb span[aria-hidden] {
+    color: var(--accent);
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 2rem;
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .eyebrow::before {
+    content: '/ ';
+    color: var(--accent);
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
+
+  .section-lead {
+    font-size: 0.9375rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .post-item {
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .post-link {
+    display: block;
+    padding: 1.75rem 0;
+    transition: padding-left 0.2s;
+  }
+
+  .post-link:hover {
+    padding-left: 0.75rem;
+  }
+
+  .post-date {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .post-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+    letter-spacing: 0;
+  }
+
+  .post-link:hover .post-title {
+    color: var(--accent);
+  }
+
+  .post-excerpt {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 0.875rem;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+</style>
