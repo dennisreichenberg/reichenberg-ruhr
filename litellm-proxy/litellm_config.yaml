@@ -1,0 +1,59 @@
+model_list:
+  # --- Ollama (Port 11434) --------------------------------------------------
+  # Catch-all: jedes Modell das Ollama kennt, wird hier durchgereicht.
+  # Aufruf:  model="ollama/<modellname>"  z.B. "ollama/qwen2.5-coder:7b"
+  - model_name: "ollama/*"
+    litellm_params:
+      model: "ollama/*"
+      api_base: "http://host.docker.internal:11434"
+
+  # Aliase fuer haeufig genutzte Modelle (ohne Namespace-Praefix aufrufbar)
+  - model_name: qwen2.5-coder
+    litellm_params:
+      model: "ollama/qwen2.5-coder:7b"
+      api_base: "http://host.docker.internal:11434"
+
+  - model_name: llama3
+    litellm_params:
+      model: "ollama/llama3:8b"
+      api_base: "http://host.docker.internal:11434"
+
+  - model_name: mistral
+    litellm_params:
+      model: "ollama/mistral:7b"
+      api_base: "http://host.docker.internal:11434"
+
+  # --- vLLM (Port 8000) -----------------------------------------------------
+  # vLLM stellt eine OpenAI-kompatible API bereit.
+  # Aufruf:  model="vllm/<modellname>"  z.B. "vllm/meta-llama/Llama-3-8B"
+  - model_name: "vllm/*"
+    litellm_params:
+      model: "openai/*"
+      api_base: "http://host.docker.internal:8000/v1"
+      api_key: "dummy"   # vLLM braucht keinen echten Key; Placeholder genuegt
+
+  # Alias fuer aktuelles vLLM-Standardmodell
+  - model_name: vllm-default
+    litellm_params:
+      model: "openai/default"
+      api_base: "http://host.docker.internal:8000/v1"
+      api_key: "dummy"
+
+# --- Proxy-Einstellungen ----------------------------------------------------
+litellm_settings:
+  # Alle Requests loggen (optional: "ERROR" fuer weniger Rauschen)
+  set_verbose: false
+  # JSON-Logging fuer strukturierte Ausgabe
+  json_logs: true
+  # Request-Timeout in Sekunden (lokale Modelle koennen langsam starten)
+  request_timeout: 300
+
+  # Langfuse-Callback: aktivieren sobald langfuse/ Stack laeuft (REI-265)
+  # success_callback: ["langfuse"]
+  # failure_callback: ["langfuse"]
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  # Optionale Datenbank fuer virtuelle Schluesselverwaltung und Kostentracking.
+  # Auskommentiert lassen solange kein Postgres-Volume noetig ist.
+  # database_url: os.environ/DATABASE_URL
