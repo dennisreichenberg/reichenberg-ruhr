@@ -1,98 +1,86 @@
 ---
-// Hero.astro — Opening section with name, tagline, and CTAs
-const hasProfileImage = true;
+// Hero.astro — text-heavy opening, no photo
 ---
 
 <section id="hero" class="hero">
-  <div class="container hero-inner">
-    <div class="hero-text">
-      <h1 class="hero-name">Dennis Reichenberg</h1>
-      <p class="hero-tagline">Software, die laeuft. Seit 2010. Aus dem Ruhrgebiet.</p>
-      <p class="hero-description">
-        Backend-Entwickler mit 13+ Jahren Praxis in Delphi, Python und C#.<br>
-        Aktuell bei VU.SOLUTIONS -- Fokus auf Selfhosted KI-Infrastruktur.
-      </p>
-      <div class="hero-cta">
-        <a href="#kontakt" class="btn btn-primary">Kontakt aufnehmen</a>
-      </div>
+  <div class="container">
+    <h1 class="hero-name">
+      Dennis<br />Reichenberg
+    </h1>
+    <p class="hero-tagline">Software, die laeuft. Seit 2010. Aus dem Ruhrgebiet.</p>
+    <p class="hero-description">
+      Backend-Entwickler mit 13+ Jahren Praxis in Delphi, Python und C#.
+      Aktuell bei VU.SOLUTIONS &mdash; Fokus auf Selfhosted KI-Infrastruktur.
+    </p>
+    <div class="hero-cta">
+      <a href="#kontakt" class="btn btn-primary">Kontakt aufnehmen</a>
+      <a href="#projekte" class="btn btn-ghost">Projekte ansehen</a>
     </div>
-    {hasProfileImage && (
-      <div class="hero-image">
-        <img src="/profile.jpg" alt="Dennis Reichenberg" width="240" height="240" />
-      </div>
-    )}
   </div>
 </section>
 
 <style>
   .hero {
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    padding: 5rem 0 4rem;
-    background: radial-gradient(ellipse at 70% 40%, rgba(217, 119, 6, 0.06) 0%, transparent 60%);
-  }
-
-  .hero-inner {
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    justify-content: space-between;
-  }
-
-  .hero-text {
-    flex: 1;
-    max-width: 600px;
+    padding: 8rem 0 5rem;
   }
 
   .hero-name {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    letter-spacing: -0.02em;
-    color: #f8fafc;
-    margin-bottom: 0.5rem;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
   }
 
   .hero-tagline {
-    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: var(--color-accent);
+    font-weight: 500;
     margin-bottom: 1.5rem;
-    font-weight: 400;
+    line-height: 1.6;
   }
 
   .hero-description {
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: var(--color-text-muted);
-    margin-bottom: 2rem;
-    line-height: 1.8;
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
   }
 
   .hero-cta {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 1.5rem;
     flex-wrap: wrap;
   }
 
-  .hero-image img {
-    width: 240px;
-    height: 240px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--color-border);
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-text-muted);
+    background: none;
+    border: none;
+    padding: 0.625rem 0;
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .btn-ghost:hover {
+    color: var(--color-text);
   }
 
   @media (max-width: 640px) {
-    .hero-inner {
-      flex-direction: column-reverse;
-      text-align: center;
+    .hero {
+      padding: 5rem 0 3rem;
     }
 
-    .hero-cta {
-      justify-content: center;
-    }
-
-    .hero-image img {
-      width: 160px;
-      height: 160px;
+    .hero-name {
+      font-size: clamp(2.5rem, 11vw, 3.5rem);
     }
   }
 </style>

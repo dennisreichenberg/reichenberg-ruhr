@@ -9,6 +9,7 @@
 
     <div class="about-grid">
       <div class="about-text">
+        <img src="/profile.jpg" alt="Dennis Reichenberg" width="80" height="80" class="about-photo" />
         <p>
           Ich entwickle seit über 13 Jahren Software, die funktioniert — und langfristig
           wartbar bleibt. Angefangen habe ich als Auszubildender bei der Fuhlrott-Datenverarbeitung OHG, wo ich
@@ -62,6 +63,16 @@
     align-items: start;
   }
 
+  .about-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+    float: left;
+    margin-right: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
   .about-text p {
     color: var(--color-text-muted);
     margin-bottom: 1rem;
@@ -93,20 +104,20 @@
   .timeline-item:not(:last-child)::before {
     content: '';
     position: absolute;
-    left: 7px;
-    top: 16px;
+    left: 3px;
+    top: 14px;
     bottom: 0;
-    width: 2px;
+    width: 1px;
     background: var(--color-border);
   }
 
   .timeline-dot {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
     background: var(--color-accent);
     flex-shrink: 0;
-    margin-top: 4px;
+    margin-top: 6px;
     position: relative;
     z-index: 1;
   }
@@ -125,7 +136,7 @@
   }
 
   .timeline-content strong {
-    color: #f1f5f9;
+    color: #e8e4dc;
     font-size: 0.95rem;
   }
 

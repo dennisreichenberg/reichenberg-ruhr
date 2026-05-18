@@ -162,7 +162,6 @@ const internalProjects = projects.filter(p => p.category === 'internal');
 
   .project-card:hover {
     border-color: var(--color-accent);
-    transform: translateY(-2px);
   }
 
   .project-card--internal {
@@ -179,7 +178,7 @@ const internalProjects = projects.filter(p => p.category === 'internal');
   .project-name {
     font-size: 1rem;
     font-weight: 600;
-    color: #f1f5f9;
+    color: #e8e4dc;
     line-height: 1.3;
   }
 
@@ -203,7 +202,7 @@ const internalProjects = projects.filter(p => p.category === 'internal');
   }
 
   .badge-pypi {
-    background: #d97706;
+    background: var(--color-accent);
     color: #fff;
   }
 
@@ -232,6 +231,11 @@ const internalProjects = projects.filter(p => p.category === 'internal');
     font-size: 0.82rem;
     color: var(--color-accent-hover);
     white-space: nowrap;
+  }
+
+  .install-cmd::before {
+    content: '$ ';
+    color: var(--color-text-muted);
   }
 
   @media (max-width: 600px) {

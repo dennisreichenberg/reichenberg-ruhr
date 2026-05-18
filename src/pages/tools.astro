@@ -138,19 +138,9 @@ const tools = [
 
   .section-title {
     font-size: 2rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
-    position: relative;
-    display: inline-block;
-  }
-
-  .section-title::after {
-    content: '';
-    display: block;
-    width: 3rem;
-    height: 3px;
-    background: var(--color-accent);
-    margin-top: 0.5rem;
-    border-radius: 2px;
+    letter-spacing: -0.02em;
   }
 
   .section-subtitle {
@@ -187,7 +177,6 @@ const tools = [
 
   .tool-card:hover {
     border-color: var(--color-accent);
-    transform: translateY(-2px);
   }
 
   .tool-header {
@@ -198,7 +187,7 @@ const tools = [
   }
 
   .tool-name {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-mono);
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--color-accent);
@@ -207,7 +196,7 @@ const tools = [
 
   .tool-tagline {
     font-size: 0.95rem;
-    color: #f1f5f9;
+    color: #e8e4dc;
     font-weight: 500;
   }
 
@@ -219,7 +208,7 @@ const tools = [
   }
 
   .github-link:hover {
-    color: #f1f5f9;
+    color: #e8e4dc;
   }
 
   .tool-description {
@@ -248,9 +237,14 @@ const tools = [
   }
 
   .install-cmd {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--font-mono);
     font-size: 0.9rem;
-    color: #a5f3fc;
+    color: var(--color-accent-hover);
+  }
+
+  .install-cmd::before {
+    content: '$ ';
+    color: var(--color-text-muted);
   }
 
   .tool-tags {
