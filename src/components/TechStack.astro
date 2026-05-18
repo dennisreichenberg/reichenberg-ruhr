@@ -1,129 +1,82 @@
 ---
-interface TechItem {
-  name: string;
-  icon?: string;
-  category: 'language' | 'framework' | 'database' | 'tool' | 'ai';
-}
-
-const techItems: TechItem[] = [
-  // Sprachen
-  { name: 'Delphi', category: 'language' },
-  { name: 'Python', icon: 'devicon-python-plain', category: 'language' },
-  { name: 'C#', icon: 'devicon-csharp-plain', category: 'language' },
-  { name: 'SQL', category: 'language' },
-
-  // Frameworks & Bibliotheken
-  { name: 'DevExpress', category: 'framework' },
-  { name: 'UniDAC', category: 'framework' },
-  { name: 'REST APIs', category: 'framework' },
-  { name: 'Selenium', icon: 'devicon-selenium-original', category: 'framework' },
-  { name: 'BeautifulSoup', category: 'framework' },
-
-  // Datenbanken
-  { name: 'Oracle 19c', icon: 'devicon-oracle-original', category: 'database' },
-  { name: 'SQLite', icon: 'devicon-sqlite-plain', category: 'database' },
-  { name: 'Firebird', category: 'database' },
-
-  // Tools
-  { name: 'Git', icon: 'devicon-git-plain', category: 'tool' },
-  { name: 'Docker', icon: 'devicon-docker-plain', category: 'tool' },
-  { name: 'Visual Studio', icon: 'devicon-visualstudio-plain', category: 'tool' },
-  { name: 'PyCharm', icon: 'devicon-pycharm-plain', category: 'tool' },
-  { name: 'Windows', icon: 'devicon-windows8-original', category: 'tool' },
-
-  // KI & Selfhosted
-  { name: 'Ollama', category: 'ai' },
-  { name: 'vLLM', category: 'ai' },
-  { name: 'Open WebUI', category: 'ai' },
-  { name: 'Selfhosted KI', category: 'ai' },
-];
-
-const categories = [
-  { key: 'language', label: 'Sprachen' },
-  { key: 'framework', label: 'Frameworks & Bibliotheken' },
-  { key: 'database', label: 'Datenbanken' },
-  { key: 'tool', label: 'Tools & Umgebung' },
-  { key: 'ai', label: 'KI & Infrastruktur' },
-] as const;
 ---
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
-
-<section id="technologien">
+<section class="section" id="stack" data-id="#02 / technologien">
   <div class="container">
-    <h2 class="section-title">Technologien</h2>
-    <p class="section-subtitle">Womit ich arbeite</p>
+    <div class="section-head">
+      <div class="left">
+        <span class="eyebrow">02 — Technologien</span>
+        <h2>Was im Werkzeugkasten <em>liegt.</em></h2>
+      </div>
+      <div class="right">5 Kategorien · 21 Tools</div>
+    </div>
 
-    <div class="tech-categories">
-      {categories.map(cat => {
-        const items = techItems.filter(t => t.category === cat.key);
-        if (items.length === 0) return null;
-        return (
-          <div class="tech-category">
-            <h3 class="category-label">{cat.label}</h3>
-            <div class="tech-grid">
-              {items.map(item => (
-                <div class="tech-item">
-                  {item.icon && <i class={`${item.icon} colored`}></i>}
-                  <span>{item.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      })}
+    <div class="stack-grid">
+      <div class="stack-cat">
+        <div class="stack-cat-header">
+          <span class="stack-cat-title">Sprachen</span>
+          <span class="stack-cat-num">04</span>
+        </div>
+        <div class="stack-items">
+          <span class="chip">Delphi</span>
+          <span class="chip">Python</span>
+          <span class="chip">C#</span>
+          <span class="chip">SQL</span>
+        </div>
+      </div>
+
+      <div class="stack-cat">
+        <div class="stack-cat-header">
+          <span class="stack-cat-title">Frameworks &amp; Bibliotheken</span>
+          <span class="stack-cat-num">05</span>
+        </div>
+        <div class="stack-items">
+          <span class="chip">DevExpress</span>
+          <span class="chip">UniDAC</span>
+          <span class="chip">REST APIs</span>
+          <span class="chip">Selenium</span>
+          <span class="chip">BeautifulSoup</span>
+        </div>
+      </div>
+
+      <div class="stack-cat">
+        <div class="stack-cat-header">
+          <span class="stack-cat-title">Datenbanken</span>
+          <span class="stack-cat-num">03</span>
+        </div>
+        <div class="stack-items">
+          <span class="chip">Oracle 19c</span>
+          <span class="chip">SQLite</span>
+          <span class="chip">Firebird</span>
+        </div>
+      </div>
+
+      <div class="stack-cat">
+        <div class="stack-cat-header">
+          <span class="stack-cat-title">Tools &amp; Umgebung</span>
+          <span class="stack-cat-num">05</span>
+        </div>
+        <div class="stack-items">
+          <span class="chip">Git</span>
+          <span class="chip">Docker</span>
+          <span class="chip">Visual Studio</span>
+          <span class="chip">PyCharm</span>
+          <span class="chip">Windows</span>
+        </div>
+      </div>
+
+      <div class="stack-cat">
+        <div class="stack-cat-header">
+          <span class="stack-cat-title">KI &amp; Infrastruktur · Schwerpunkt</span>
+          <span class="stack-cat-num">04</span>
+        </div>
+        <div class="stack-items">
+          <span class="chip">Ollama</span>
+          <span class="chip">vLLM</span>
+          <span class="chip">Open WebUI</span>
+          <span class="chip">Selfhosted KI</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-
-<style>
-  .tech-categories {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-
-  .category-label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-
-  .tech-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .tech-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--color-text);
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .tech-item:hover {
-    border-color: var(--color-accent);
-    transform: translateY(-2px);
-  }
-
-  .tech-item i {
-    font-size: 1.25rem;
-  }
-
-  @media (max-width: 480px) {
-    .tech-item {
-      font-size: 0.8rem;
-      padding: 0.4rem 0.75rem;
-    }
-  }
-</style>

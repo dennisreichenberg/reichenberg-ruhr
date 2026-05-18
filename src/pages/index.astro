@@ -36,9 +36,6 @@ const url = 'https://reichenberg.ruhr/';
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:image" content={`${url}profile.jpg`} />
-    <meta property="og:image:width" content="240" />
-    <meta property="og:image:height" content="240" />
-    <meta name="twitter:image" content={`${url}profile.jpg`} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
@@ -51,97 +48,432 @@ const url = 'https://reichenberg.ruhr/';
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "WebSite",
-            "@id": "https://reichenberg.ruhr/#website",
-            "url": "https://reichenberg.ruhr",
-            "name": "Dennis Reichenberg",
-            "description": "Persönliche Website von Dennis Reichenberg — Softwareentwickler im Ruhrgebiet",
-            "inLanguage": "de-DE",
-            "publisher": {
-              "@id": "https://reichenberg.ruhr/#person"
-            }
-          },
-          {
             "@type": "Person",
             "@id": "https://reichenberg.ruhr/#person",
             "name": "Dennis Reichenberg",
-            "givenName": "Dennis",
-            "familyName": "Reichenberg",
             "jobTitle": "Softwareentwickler",
-            "description": "Software Developer aus dem Ruhrgebiet mit 13+ Jahren Erfahrung in Backend-Entwicklung mit Delphi, Python und C#.",
             "url": "https://reichenberg.ruhr",
             "email": "dennis@reichenberg.ruhr",
-            "image": "https://reichenberg.ruhr/profile.jpg",
-            "nationality": {
-              "@type": "Country",
-              "name": "Germany"
-            },
-            "address": {
-              "@type": "PostalAddress",
-              "addressRegion": "Nordrhein-Westfalen",
-              "addressCountry": "DE"
-            },
             "sameAs": [
               "https://www.xing.com/profile/Dennis_Reichenberg4",
               "https://github.com/dennisreichenberg"
-            ],
-            "knowsAbout": [
-              "Delphi", "Python", "C#", "SQL",
-              "DevExpress", "REST APIs", "Selenium", "BeautifulSoup",
-              "Oracle", "SQLite", "Firebird",
-              "Git", "Docker",
-              "Ollama", "vLLM", "Selfhosted AI"
-            ],
-            "worksFor": {
-              "@type": "Organization",
-              "name": "VU.SOLUTIONS GmbH & Co. KG",
-              "url": "https://vu-solutions.de"
-            }
+            ]
           }
         ]
       }
     </script>
 
-    <!-- Favicon placeholder (replace with actual favicon) -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Inter font from Google Fonts -->
+    <!-- IBM Plex Mono from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
 
-  <body>
+  <body data-theme="terminal" data-phosphor="orange" data-glow="off" data-density="comfortable">
+
+    <script is:inline>
+      /* Pre-paint: hide body until boot plays (first session only) */
+      try {
+        if (sessionStorage.getItem('booted') !== '1') {
+          document.documentElement.dataset.booting = '1';
+        }
+      } catch (e) {}
+      /* Safety timeout: never leave page hidden if scripts error */
+      setTimeout(() => document.documentElement.removeAttribute('data-booting'), 3000);
+    </script>
+
+    <!-- SESSION BANNER -->
+    <div class="term-session" aria-hidden="true">
+      <div class="term-session-inner">
+        <span><span class="term-session-dot"></span>session: <span class="label">dennis@ruhrgebiet</span></span>
+        <span class="sep">·</span>
+        <span>tty: <span class="label">/dev/web</span></span>
+        <span class="sep">·</span>
+        <span>uptime: <span class="label">13y 7m</span></span>
+        <span class="sep">·</span>
+        <span>status: <span class="label">verfügbar</span></span>
+      </div>
+    </div>
+
     <Nav />
     <main>
       <Hero />
-      <hr class="section-divider" />
       <About />
-      <hr class="section-divider" />
       <TechStack />
-      <hr class="section-divider" />
       <Projects />
-      <hr class="section-divider" />
       <Contact />
     </main>
     <Footer />
 
-    <script>
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.1 }
-      );
+    <!-- STATUS BAR -->
+    <div class="statusbar" aria-hidden="true">
+      <span class="sb-mode">NORMAL</span>
+      <span class="sb-section" id="sb-section">~/portfolio</span>
+      <span class="sb-sep">·</span>
+      <span>utf-8</span>
+      <span class="sb-sep">·</span>
+      <span>de_DE</span>
+      <span class="sb-spacer"></span>
+      <span id="sb-pos">L 1 / 4</span>
+      <span class="sb-sep">·</span>
+      <span id="sb-time"></span>
+    </div>
 
-      document
-        .querySelectorAll('#ueber-mich, #technologien, #projekte, #kontakt')
-        .forEach((section) => observer.observe(section));
+    <!-- CLI PANEL -->
+    <div class="cli" id="cli" aria-hidden="true">
+      <div class="cli-head">
+        <span class="title">$ shell — drücke <kbd>?</kbd> für Hilfe</span>
+        <span class="hints">
+          <kbd>↑</kbd><kbd>↓</kbd> history · <kbd>Esc</kbd> schließen
+        </span>
+        <button class="cli-close" id="cli-close" aria-label="Schließen">×</button>
+      </div>
+      <div class="cli-output" id="cli-output"></div>
+      <form class="cli-input-row" id="cli-form" autocomplete="off">
+        <span class="ps1">dennis@ruhrgebiet:~$</span>
+        <input id="cli-input" type="text" autocomplete="off" spellcheck="false" placeholder="Befehl eingeben, z. B. 'help'" />
+      </form>
+    </div>
+
+    <!-- HELP OVERLAY -->
+    <div class="help-overlay" id="help-overlay" role="dialog" aria-modal="true" aria-label="Tastatur-Shortcuts">
+      <div class="help-box">
+        <h3>Tastatur-Shortcuts</h3>
+        <div class="subtitle">Navigation und Shell · drücke <kbd>Esc</kbd> zum Schließen</div>
+        <div class="help-grid">
+          <div><kbd>j</kbd> <kbd>k</kbd></div>
+          <div class="desc">Nächste / vorherige Sektion</div>
+          <div><kbd>g</kbd></div>
+          <div class="desc">Springe zum Anfang</div>
+          <div><kbd>G</kbd></div>
+          <div class="desc">Springe zum Ende</div>
+          <div><kbd>/</kbd></div>
+          <div class="desc">Shell öffnen / fokussieren</div>
+          <div><kbd>?</kbd></div>
+          <div class="desc">Diese Hilfe ein-/ausblenden</div>
+          <div><kbd>Esc</kbd></div>
+          <div class="desc">Shell oder Hilfe schließen</div>
+        </div>
+        <div class="help-foot">
+          Shell-Befehle: <kbd>help</kbd> · <kbd>whoami</kbd> · <kbd>ls</kbd> · <kbd>projects</kbd> · <kbd>contact</kbd> · <kbd>cv</kbd> · <kbd>accent</kbd> · <kbd>glow</kbd> · <kbd>clear</kbd>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOT OVERLAY -->
+    <div class="boot-overlay" id="boot-overlay" aria-hidden="true">
+      <div class="boot-lines" id="boot-lines"></div>
+    </div>
+
+    <script>
+      /* ---------- Nav active highlight on scroll ---------- */
+      const navLinks = document.querySelectorAll('.nav-links a[data-nav]');
+      const sections = ['about', 'stack', 'projects', 'contact'].map(id => document.getElementById(id));
+
+      /* ---------- Status bar ---------- */
+      const sbSection = document.getElementById('sb-section');
+      const sbPos = document.getElementById('sb-pos');
+      const sbTime = document.getElementById('sb-time');
+
+      function updateActive() {
+        const y = window.scrollY + 120;
+        let active: string | null = null;
+        let activeIdx = 0;
+        sections.forEach((s, i) => { if (s && s.offsetTop <= y) { active = s.id; activeIdx = i + 1; } });
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${active}`));
+        if (sbSection) sbSection.textContent = '~/portfolio/' + (active || 'top') + '.md';
+        if (sbPos) sbPos.textContent = 'L ' + Math.max(activeIdx, 1) + ' / ' + sections.length;
+      }
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+
+      function tickTime() {
+        if (!sbTime) return;
+        const d = new Date();
+        const hh = String(d.getHours()).padStart(2, '0');
+        const mm = String(d.getMinutes()).padStart(2, '0');
+        sbTime.textContent = hh + ':' + mm;
+      }
+      tickTime();
+      setInterval(tickTime, 30000);
+
+      /* ---------- Boot sequence ---------- */
+      const bootOverlay = document.getElementById('boot-overlay');
+      const bootLines = document.getElementById('boot-lines');
+      const today = new Date().toISOString().slice(0, 10);
+      const BOOT_SCRIPT = [
+        { tag: 'BOOT',  cls: '',      text: 'initializing reichenberg.ruhr ...' },
+        { tag: '  OK ', cls: '',      text: 'mounting /skills          [21 entries]' },
+        { tag: '  OK ', cls: '',      text: 'loading /projects         [7 packages]' },
+        { tag: '  OK ', cls: '',      text: 'opening uplink            [ruhrgebiet / nrw]' },
+        { tag: '  OK ', cls: '',      text: 'starting shell @ ' + today },
+        { tag: 'READY', cls: 'ready', text: 'glück auf, besucher.' },
+      ];
+
+      function playBoot() {
+        if (!bootOverlay || !bootLines) return;
+        if (sessionStorage.getItem('booted') === '1') {
+          document.documentElement.removeAttribute('data-booting');
+          return;
+        }
+        sessionStorage.setItem('booted', '1');
+
+        bootOverlay.classList.add('active');
+        bootLines.innerHTML = '';
+        let i = 0;
+        function step() {
+          if (i >= BOOT_SCRIPT.length) {
+            setTimeout(() => {
+              bootOverlay!.classList.add('fading');
+              document.documentElement.removeAttribute('data-booting');
+              setTimeout(() => bootOverlay!.classList.remove('active', 'fading'), 500);
+            }, 350);
+            return;
+          }
+          const item = BOOT_SCRIPT[i++];
+          const row = document.createElement('div');
+          row.className = 'boot-line';
+          row.innerHTML =
+            `<span class="boot-tag ${item.cls}">[ ${item.tag} ]</span>` +
+            `<span class="boot-text">${item.text}</span>`;
+          bootLines!.appendChild(row);
+          setTimeout(step, 180 + Math.random() * 90);
+        }
+        step();
+      }
+      requestAnimationFrame(playBoot);
+
+      /* ---------- Keyboard navigation ---------- */
+      const allAnchors = [
+        document.getElementById('top'),
+        document.getElementById('about'),
+        document.getElementById('stack'),
+        document.getElementById('projects'),
+        document.getElementById('contact'),
+      ].filter(Boolean) as HTMLElement[];
+
+      function currentAnchorIndex() {
+        const y = window.scrollY + 140;
+        let idx = 0;
+        allAnchors.forEach((a, i) => { if (a.offsetTop <= y) idx = i; });
+        return idx;
+      }
+      function scrollToAnchor(i: number) {
+        const a = allAnchors[Math.max(0, Math.min(allAnchors.length - 1, i))];
+        if (a) window.scrollTo({ top: a.offsetTop - 80, behavior: 'smooth' });
+      }
+
+      const helpOverlay = document.getElementById('help-overlay')!;
+      function openHelp()  { helpOverlay.classList.add('open'); }
+      function closeHelp() { helpOverlay.classList.remove('open'); }
+
+      helpOverlay.addEventListener('click', (e) => {
+        if (e.target === helpOverlay) closeHelp();
+      });
+
+      const cli = document.getElementById('cli')!;
+      const cliInput = document.getElementById('cli-input') as HTMLInputElement;
+      let cliIntroShown = false;
+
+      function openCli() {
+        cli.classList.add('open');
+        setTimeout(() => cliInput.focus(), 50);
+        const cliOutputEl = document.getElementById('cli-output')!;
+        if (!cliIntroShown && cliOutputEl.children.length === 0) {
+          cliIntroShown = true;
+          const intro = document.createElement('div');
+          intro.className = 'cli-entry';
+          intro.innerHTML = `<div class="result success">willkommen — drücke <span style="color:var(--accent)">help</span> für Befehle, <span style="color:var(--accent)">Esc</span> zum Schließen.</div>`;
+          cliOutputEl.appendChild(intro);
+        }
+      }
+      function closeCli() { cli.classList.remove('open'); cliInput.blur(); }
+      document.getElementById('cli-close')!.addEventListener('click', closeCli);
+
+      if (sbSection) {
+        sbSection.title = 'Shell öffnen (oder / drücken)';
+        sbSection.addEventListener('click', openCli);
+      }
+
+      window.addEventListener('keydown', (e) => {
+        const inField = ['INPUT', 'TEXTAREA'].includes((document.activeElement as HTMLElement)?.tagName);
+        if (e.key === 'Escape') {
+          if (helpOverlay.classList.contains('open')) { closeHelp(); return; }
+          if (cli.classList.contains('open'))         { closeCli(); return; }
+          return;
+        }
+        if (inField) return;
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+        switch (e.key) {
+          case 'j': scrollToAnchor(currentAnchorIndex() + 1); e.preventDefault(); break;
+          case 'k': scrollToAnchor(currentAnchorIndex() - 1); e.preventDefault(); break;
+          case 'g': window.scrollTo({ top: 0, behavior: 'smooth' }); e.preventDefault(); break;
+          case 'G': window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); e.preventDefault(); break;
+          case '?': helpOverlay.classList.contains('open') ? closeHelp() : openHelp(); e.preventDefault(); break;
+          case '/': openCli(); e.preventDefault(); break;
+        }
+      });
+
+      /* ---------- CLI commands ---------- */
+      const cliOutput = document.getElementById('cli-output')!;
+      const cliForm = document.getElementById('cli-form')!;
+      const history: string[] = [];
+      let histIdx = -1;
+
+      const accentMap: Record<string, string> = {
+        orange: "oklch(72% 0.17 50)",
+        copper: "oklch(60% 0.14 35)",
+        amber:  "oklch(78% 0.16 70)",
+        green:  "oklch(80% 0.18 145)",
+        cyan:   "oklch(76% 0.13 200)"
+      };
+
+      function escapeHtml(s: string) {
+        return String(s).replace(/[&<>"']/g, (c: string) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c] || c));
+      }
+
+      function cliPrintEntry(typed: string) {
+        const wrap = document.createElement('div');
+        wrap.className = 'cli-entry';
+        wrap.innerHTML = `<div class="cmd-line"><span class="ps1">dennis@ruhrgebiet:~$</span><span class="typed">${escapeHtml(typed)}</span></div>`;
+        cliOutput.appendChild(wrap);
+        cliOutput.scrollTop = cliOutput.scrollHeight;
+        return wrap;
+      }
+
+      function appendResult(parent: HTMLElement, html: string, cls = '') {
+        const r = document.createElement('div');
+        r.className = 'result ' + cls;
+        r.innerHTML = html;
+        parent.appendChild(r);
+        cliOutput.scrollTop = cliOutput.scrollHeight;
+      }
+
+      function scrollToId(id: string) {
+        const el = document.getElementById(id);
+        if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+      }
+
+      const COMMANDS: Record<string, (arg: string) => string | null | { err: string }> = {
+        help: () => `<div class="result help-line"><span class="k">help</span><span>Diese Übersicht zeigen</span></div>
+<div class="result help-line"><span class="k">whoami</span><span>Kurzbio anzeigen</span></div>
+<div class="result help-line"><span class="k">ls</span><span>Sektionen auflisten</span></div>
+<div class="result help-line"><span class="k">cat &lt;sektion&gt;</span><span>Zu Sektion scrollen (about, stack, projects, contact)</span></div>
+<div class="result help-line"><span class="k">projects</span><span>Zur Projekt-Sektion scrollen</span></div>
+<div class="result help-line"><span class="k">contact</span><span>Zur Kontakt-Sektion scrollen</span></div>
+<div class="result help-line"><span class="k">cv</span><span>Werdegang in der Shell ausgeben</span></div>
+<div class="result help-line"><span class="k">accent &lt;name&gt;</span><span>orange / amber / green / cyan / copper</span></div>
+<div class="result help-line"><span class="k">glow on|off</span><span>Phosphor-Glow umschalten</span></div>
+<div class="result help-line"><span class="k">date</span><span>Aktuelles Datum / Uhrzeit</span></div>
+<div class="result help-line"><span class="k">clear</span><span>Output löschen</span></div>
+<div class="result help-line"><span class="k">exit</span><span>Shell schließen</span></div>`,
+
+        whoami: () => `Dennis Reichenberg — Full-Stack-Entwickler aus Mülheim.
+13+ Jahre Delphi, Python, C#, SQL. Am wohlsten im Backend.
+Aktuell: VU.SOLUTIONS, Fokus selfhosted KI.
+Erreichbar unter dennis@reichenberg.ruhr · Glück auf.`,
+
+        ls: () => `drwxr-xr-x  dennis  ruhrgebiet   about/
+drwxr-xr-x  dennis  ruhrgebiet   stack/
+drwxr-xr-x  dennis  ruhrgebiet   projects/
+drwxr-xr-x  dennis  ruhrgebiet   contact/
+-rw-r--r--  dennis  ruhrgebiet   readme.md`,
+
+        cat: (arg) => {
+          const map: Record<string, string> = { about: 'about', stack: 'stack', projects: 'projects', contact: 'contact' };
+          if (!arg) return { err: 'cat: missing operand. Versuche: cat about | stack | projects | contact' };
+          const target = arg.replace(/\/+$/, '');
+          if (!map[target]) return { err: `cat: ${arg}: file not found` };
+          scrollToId(target);
+          return `cd ${target}/ — siehe Sektion oben.`;
+        },
+
+        projects: () => { scrollToId('projects'); return 'cd projects/ — siehe oben'; },
+        contact:  () => { scrollToId('contact');  return 'cd contact/ — schreib mir gern'; },
+        about:    () => { scrollToId('about');    return 'cd about/ — siehe oben'; },
+        stack:    () => { scrollToId('stack');    return 'cd stack/ — siehe oben'; },
+
+        cv: () => `┌── Werdegang ──────────────────────────────────────
+│ 2023 — heute   Software Developer
+│                VU.SOLUTIONS GmbH &amp; Co. KG
+│
+│ 2018 — 2023    Abteilungsleiter Software
+│                Fuhlrott-Datenverarbeitung OHG, Düsseldorf
+│
+│ 2010 — 2018    Anwendungsentwickler
+│                Fuhlrott-Datenverarbeitung OHG
+└──────────────────────────────────────────────────`,
+
+        accent: (arg) => {
+          const valid = Object.keys(accentMap);
+          if (!arg || !valid.includes(arg)) return { err: `accent: erwarte einen Namen aus: ${valid.join(', ')}` };
+          const val = accentMap[arg];
+          document.body.style.setProperty('--accent', val);
+          document.body.style.setProperty('--accent-soft', `color-mix(in oklch, ${val} 16%, transparent)`);
+          return `accent → ${arg}`;
+        },
+
+        glow: (arg) => {
+          const on = arg === 'on' || arg === '1' || arg === 'true';
+          const off = arg === 'off' || arg === '0' || arg === 'false';
+          const current = document.body.getAttribute('data-glow') === 'on';
+          const next = (on || (!off && !current));
+          document.body.setAttribute('data-glow', next ? 'on' : 'off');
+          return `glow → ${next ? 'on' : 'off'}`;
+        },
+
+        date: () => new Date().toString(),
+
+        clear: () => { cliOutput.innerHTML = ''; return null; },
+
+        exit: () => { closeCli(); return null; },
+        ':q':  () => { closeCli(); return null; },
+      };
+
+      function runCommand(raw: string) {
+        const trimmed = raw.trim();
+        const entry = cliPrintEntry(trimmed);
+        if (!trimmed) return;
+        history.unshift(trimmed); histIdx = -1;
+        const parts = trimmed.split(/\s+/);
+        const cmd = parts[0].toLowerCase();
+        const arg = parts.slice(1).join(' ').toLowerCase();
+        const fn = COMMANDS[cmd];
+        if (!fn) {
+          appendResult(entry, `Befehl nicht gefunden: <span style="color:var(--accent)">${escapeHtml(cmd)}</span>. Tippe <span style="color:var(--accent)">help</span>.`, 'error');
+          return;
+        }
+        const out = fn(arg);
+        if (out == null) return;
+        if (typeof out === 'object' && 'err' in out) {
+          appendResult(entry, escapeHtml(out.err), 'error');
+        } else {
+          appendResult(entry, out as string, 'success');
+        }
+      }
+
+      cliForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const v = cliInput.value;
+        cliInput.value = '';
+        runCommand(v);
+      });
+
+      cliInput.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (history.length === 0) return;
+          histIdx = Math.min(history.length - 1, histIdx + 1);
+          cliInput.value = history[histIdx] || '';
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          histIdx = Math.max(-1, histIdx - 1);
+          cliInput.value = histIdx === -1 ? '' : history[histIdx];
+        }
+      });
     </script>
   </body>
 </html>

@@ -1,94 +1,52 @@
 ---
-// Contact.astro — Simple contact section, no form to avoid spam/server-side logic
 ---
 
-<section id="kontakt">
+<section class="section" id="contact" data-id="#04 / kontakt">
   <div class="container">
-    <h2 class="section-title">Kontakt</h2>
-    <p class="section-subtitle">Interesse an einer Zusammenarbeit?</p>
+    <div class="contact-grid">
+      <div>
+        <span class="eyebrow" style="margin-bottom: 24px;">04 — Kontakt</span>
+        <h2 class="contact-headline" style="margin-top: 18px;">Auf 'n <em>Kaffee</em> — oder ein Projekt?</h2>
+        <p class="contact-sub">
+          Ob Projekt, Frage oder einfach Vernetzen — schreib mir gern. Antwort meistens
+          innerhalb 24 Stunden, höchstens 48, wenn der Strom mal weg is'.
+        </p>
+      </div>
 
-    <div class="contact-card">
-      <p class="contact-intro">
-        Sie haben ein Projekt, eine Frage oder möchten sich einfach vernetzen?
-        Ich freue mich über Nachrichten.
-      </p>
-
-      <div class="contact-links">
-        <a href="mailto:dennis@reichenberg.ruhr" class="contact-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="20" height="16" x="2" y="4" rx="2"/>
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-          </svg>
-          dennis@reichenberg.ruhr
+      <div class="contact-list">
+        <a href="mailto:dennis@reichenberg.ruhr" class="contact-item">
+          <span class="contact-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          </span>
+          <div>
+            <div class="contact-label">E-Mail</div>
+            <div class="contact-value">dennis@reichenberg.ruhr</div>
+          </div>
+          <span class="contact-arrow">→</span>
         </a>
 
-<a href="https://www.xing.com/profile/Dennis_Reichenberg4" target="_blank" rel="noopener" class="contact-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.643-.962-.643H3.648v.0z"/>
-          </svg>
-          XING Profil
+        <a href="https://www.xing.com/profile/Dennis_Reichenberg4" class="contact-item" target="_blank" rel="noopener">
+          <span class="contact-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l5 6-7 9h4l5-6 5 6h4l-7-9 5-6h-4l-3 4-3-4z"/></svg>
+          </span>
+          <div>
+            <div class="contact-label">Berufliches Netzwerk</div>
+            <div class="contact-value">XING Profil</div>
+          </div>
+          <span class="contact-arrow">→</span>
         </a>
 
-        <a href="https://github.com/dennisreichenberg" target="_blank" rel="noopener" class="contact-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-          </svg>
-          GitHub Profil
+        <a href="https://github.com/dennisreichenberg" class="contact-item" target="_blank" rel="noopener">
+          <span class="contact-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.71c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.04 1.53 1.04.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+          </span>
+          <div>
+            <div class="contact-label">Code &amp; Open Source</div>
+            <div class="contact-value">GitHub Profil</div>
+          </div>
+          <span class="contact-arrow">→</span>
         </a>
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  .contact-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: 1rem;
-    padding: 2.5rem;
-    max-width: 540px;
-  }
-
-  .contact-intro {
-    color: var(--color-text-muted);
-    margin-bottom: 2rem;
-    font-size: 1.05rem;
-    line-height: 1.8;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--color-text);
-    font-size: 0.95rem;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--color-border);
-    transition: all 0.2s ease;
-    background: var(--color-bg);
-  }
-
-  .contact-link:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    transform: translateX(4px);
-  }
-
-  .contact-link svg {
-    flex-shrink: 0;
-    color: var(--color-accent);
-  }
-
-  @media (max-width: 640px) {
-    .contact-card {
-      padding: 1.5rem;
-    }
-  }
-</style>
