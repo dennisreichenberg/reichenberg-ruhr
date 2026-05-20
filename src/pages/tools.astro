@@ -168,6 +168,30 @@ const categories: Category[] = [
       },
     ],
   },
+  {
+    label: 'Self-Hosted Stack',
+    id: 'stack',
+    tools: [
+      {
+        name: 'langfuse',
+        tagline: 'Self-hosted LLM-Observability',
+        description: 'Traces, Evals, Prompt-Management und Cost-Tracking fuer alle lokalen LLM-Tools. UI auf Port 3030. Configs, Secrets-Template und Integrations-Hinweise im Repo.',
+        install: 'docker compose up -d',
+        githubUrl: 'https://github.com/dennisreichenberg/reichenberg-ruhr/tree/main/langfuse',
+        pypiUrl: null,
+        tags: ['Docker', 'Observability', 'Self-Hosted', 'LLM-Ops', 'Langfuse'],
+      },
+      {
+        name: 'litellm-proxy',
+        tagline: 'OpenAI-kompatibler Unified-Gateway',
+        description: 'API-Gateway fuer Ollama und vLLM, optional mit Langfuse-Callback. Ein OpenAI-kompatibler Endpunkt fuer alle lokalen Backends. Proxy auf Port 4000.',
+        install: 'docker compose up -d',
+        githubUrl: 'https://github.com/dennisreichenberg/reichenberg-ruhr/tree/main/litellm-proxy',
+        pypiUrl: null,
+        tags: ['Docker', 'API Gateway', 'Self-Hosted', 'LiteLLM', 'Ollama', 'vLLM'],
+      },
+    ],
+  },
 ];
 ---
 
@@ -213,7 +237,7 @@ const categories: Category[] = [
           </a>
 
           <h1 class="section-title">Tools</h1>
-          <p class="section-subtitle">14 Open-Source CLI-Tools fuer lokale KI-Infrastruktur</p>
+          <p class="section-subtitle">14 CLI-Tools + 2 Self-Hosted Stacks fuer lokale KI-Infrastruktur</p>
           <p class="intro">
             Diese Tools entstanden aus dem Alltag mit selbst gehosteten KI-Systemen.
             Alle sind auf <a href="https://github.com/dennisreichenberg" target="_blank" rel="noopener">GitHub</a> verfuegbar.
@@ -238,6 +262,8 @@ const categories: Category[] = [
                       <div class="tool-badges">
                         {tool.pypiUrl ? (
                           <a href={tool.pypiUrl} target="_blank" rel="noopener" class="badge badge-pypi">PyPI</a>
+                        ) : tool.install?.startsWith('docker') ? (
+                          <span class="badge badge-docker">Docker</span>
                         ) : (
                           <span class="badge badge-soon">Coming soon</span>
                         )}
@@ -453,6 +479,12 @@ const categories: Category[] = [
   .badge-pypi:hover {
     background: var(--ink);
     color: var(--bg);
+  }
+
+  .badge-docker {
+    background: #0db7ed;
+    color: #fff;
+    border-color: transparent;
   }
 
   .badge-soon {
