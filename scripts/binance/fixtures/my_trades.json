@@ -1,0 +1,5 @@
+[
+  {"symbol": "BTCEUR", "id": 1, "orderId": 1, "price": "55000.00", "qty": "0.05", "quoteQty": "2750.00", "time": 1714000000000, "isBuyer": true,  "isMaker": false},
+  {"symbol": "ETHEUR", "id": 2, "orderId": 2, "price": "2800.00",  "qty": "1.0",  "quoteQty": "2800.00", "time": 1714100000000, "isBuyer": true,  "isMaker": false},
+  {"symbol": "BNBEUR", "id": 3, "orderId": 3, "price": "510.00",   "qty": "2.0",  "quoteQty": "1020.00", "time": 1714200000000, "isBuyer": true,  "isMaker": false}
+]

@@ -1,0 +1,17 @@
+{
+  "makerCommission": 10,
+  "takerCommission": 10,
+  "buyerCommission": 0,
+  "sellerCommission": 0,
+  "canTrade": true,
+  "canWithdraw": false,
+  "canDeposit": true,
+  "updateTime": 1715000000000,
+  "accountType": "SPOT",
+  "balances": [
+    {"asset": "BTC", "free": "0.085",  "locked": "0.0"},
+    {"asset": "ETH", "free": "1.4",    "locked": "0.0"},
+    {"asset": "BNB", "free": "2.1",    "locked": "0.0"},
+    {"asset": "EUR", "free": "320.00", "locked": "0.0"}
+  ]
+}

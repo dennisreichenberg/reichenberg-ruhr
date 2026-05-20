@@ -8,3 +8,10 @@ node_modules/
 # Secret-Schutz
 *credentials*.json
 .paperclip/secrets/
+secrets/
+secrets/*.json
+
+# Binance trading agent runtime data (REI-329)
+data/treasury/
+__pycache__/
+*.pyc
