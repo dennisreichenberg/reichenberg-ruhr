@@ -86,6 +86,51 @@ def _paperclip_auth() -> tuple[str, str]:
     return base_url, token
 
 
+TRADING_LOG_ISSUE_ID = "f06362be-4b2c-4e4d-aab3-326a03dbbad6"
+
+
+def post_audit_comment(
+    run_date: date,
+    result: str,
+    gate1_ok: bool,
+    gate2_max_pct: float,
+    state: "Phase1State",
+    digest_ok: bool,
+    error: str = "",
+    issue_id: str = TRADING_LOG_ISSUE_ID,
+) -> bool:
+    """POST a cycle audit comment to the Trading-Log issue (REI-330).
+
+    Returns True if the HTTP call succeeded (2xx). On failure: returns False
+    without raising so the caller can decide whether to mark the cycle as failed.
+    """
+    try:
+        import urllib.request
+        base_url, token = _paperclip_auth()
+        url = f"{base_url}/api/issues/{issue_id}/comments"
+
+        lines = [
+            f"Cycle {run_date.isoformat()} [phase=read_only] result={result}",
+            f"Gate1(permissions): {'OK' if gate1_ok else 'FAIL'}",
+            f"Gate2(sanity): max_trade={gate2_max_pct:.1f}%",
+            f"Gate3(counter): {state.clean_count}/{PHASE1_REQUIRED_CLEAN} clean "
+            f"(total={state.total_count}, consecutive_failures={state.consecutive_failures})",
+            f"DigestWrite: {'OK' if digest_ok else 'FAIL'}",
+        ]
+        if error:
+            lines.append(f"Error: {error}")
+
+        body = json.dumps({"body": "\n".join(lines)}).encode()
+        req = urllib.request.Request(url, data=body, method="POST")
+        req.add_header("Content-Type", "application/json")
+        if token:
+            req.add_header("Authorization", f"Bearer {token}")
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            return resp.status < 300
+    except Exception:
+        return False
+
+
 def pause_routine(routine_id: str = ROUTINE_ID) -> bool:
     """PATCH the Paperclip routine to status=paused.
 

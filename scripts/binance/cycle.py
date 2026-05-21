@@ -235,29 +235,57 @@ def main(argv: list[str] | None = None) -> int:
         if args.print_digest:
             print(result["digest"]["telegram_text"])
 
-        # Stage 4 success: mark clean (audit comment posted by scheduled wake)
+        # ── Stage 4: audit comment + clean-cycle counter ─────────────────────
         if fixtures is None:
-            _mark_cycle_outcome(state, run_date_obj, success=True)
+            portfolio_total = sum(result["snapshot"].get("eur_portfolio", {}).values())
+            trades = result["paper_trades"]
+            gate2_max_pct = (max((t["eur_amount"] for t in trades), default=0.0) / portfolio_total * 100
+                             if portfolio_total > 0 else 0.0)
+            digest_ok = "telegram_text" in result.get("digest", {})
+
+            # Post audit comment to REI-330 BEFORE marking clean.
+            # If the comment POST fails, count the cycle as failed (Gate 3 Stage 4).
+            comment_ok = p1.post_audit_comment(
+                run_date=run_date_obj,
+                result="clean",
+                gate1_ok=True,
+                gate2_max_pct=gate2_max_pct,
+                state=state,
+                digest_ok=digest_ok,
+            )
+            if comment_ok:
+                _mark_cycle_outcome(state, run_date_obj, success=True)
+            else:
+                _mark_cycle_outcome(state, run_date_obj, success=False,
+                                    reason="Stage4: audit comment POST to REI-330 failed")
 
         clean = state.clean_count
         print(f"Phase-1 clean cycles: {clean}/{p1.PHASE1_REQUIRED_CLEAN}")
-        return 0
+        return 0 if (fixtures is not None or state.history[-1]["result"] == "clean") else 1
 
     except CycleGateError as exc:
-        print(f"GATE VIOLATION: {exc}", flush=True)
+        err_msg = str(exc)
+        print(f"GATE VIOLATION: {err_msg}", flush=True)
         if state is None:
             state = p1.load(STATE_FILE)
-        _mark_cycle_outcome(state, run_date, success=False, reason=str(exc))
+        _mark_cycle_outcome(state, run_date, success=False, reason=err_msg)
+        if fixtures is None:
+            p1.post_audit_comment(run_date=run_date, result="failed", gate1_ok=False,
+                                  gate2_max_pct=0.0, state=state, digest_ok=False, error=err_msg)
         if state.routine_auto_paused:
             print("Routine auto-paused due to consecutive failures.")
-        return 2  # distinct exit code for gate violations
+        return 2
 
     except Exception as exc:
-        print(f"CYCLE FAILED: {exc}", flush=True)
+        err_msg = repr(exc)
+        print(f"CYCLE FAILED: {err_msg}", flush=True)
         traceback.print_exc()
         if state is None:
             state = p1.load(STATE_FILE)
-        _mark_cycle_outcome(state, run_date, success=False, reason=repr(exc))
+        _mark_cycle_outcome(state, run_date, success=False, reason=err_msg)
+        if fixtures is None:
+            p1.post_audit_comment(run_date=run_date, result="failed", gate1_ok=False,
+                                  gate2_max_pct=0.0, state=state, digest_ok=False, error=err_msg)
         if state.routine_auto_paused:
             print("Routine auto-paused due to consecutive failures.")
         return 1
