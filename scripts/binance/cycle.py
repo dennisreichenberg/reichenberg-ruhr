@@ -70,7 +70,17 @@ def run(fixtures_dir: Path | None, run_date: date) -> dict:
         client = BinanceClient(credentials=Credentials.from_file(SECRETS_FILE))
 
     account = client.get_account()
-    tickers = {f"{a}{QUOTE}": float(client.get_symbol_ticker(f"{a}{QUOTE}")["price"]) for a in ASSETS}
+    tickers: dict[str, float] = {}
+    for a in ASSETS:
+        tickers[f"{a}{QUOTE}"] = float(client.get_symbol_ticker(f"{a}{QUOTE}")["price"])
+    # Stablecoin → EUR rates via inverted EUR/USD pairs (EURUSDT, EURUSDC exist on Binance)
+    if fixtures_dir is None:
+        for stable, eur_pair in (("USDT", "EURUSDT"), ("USDC", "EURUSDC")):
+            try:
+                eur_price = float(client.get_symbol_ticker(eur_pair)["price"])
+                tickers[f"{stable}{QUOTE}"] = 1.0 / eur_price
+            except Exception:
+                pass
     portfolio_eur = derive_eur_portfolio(account, tickers)
 
     quantities = {}
