@@ -18,6 +18,9 @@ from pathlib import Path
 
 from scripts.binance import PHASE
 from scripts.binance.client import BinanceClient, PhaseError
+from scripts.binance.cycle import CycleGateError, _gate1_permissions, _gate2_sanity_bound, EXPECTED_ACCOUNT_TYPE, EXPECTED_PERMISSIONS
+from scripts.binance import phase1 as p1
+from scripts.binance.strategy import PaperTrade
 from scripts.binance.config import load as load_config
 from scripts.binance.cycle import run
 from scripts.binance.risk import TradeProposal, evaluate
@@ -109,6 +112,102 @@ def test_full_cycle_with_fixtures(tmp: Path) -> None:
     print("---------------------")
 
 
+def test_gate1_permissions() -> None:
+    # Valid account → no raise
+    valid = {"accountType": EXPECTED_ACCOUNT_TYPE, "permissions": EXPECTED_PERMISSIONS}
+    try:
+        _gate1_permissions(valid)
+        print(f"OK    gate1 passes on correct account type + permissions")
+    except CycleGateError as e:
+        _fail(f"gate1 raised on valid account: {e}")
+
+    # Wrong type → raise
+    wrong_type = {"accountType": "MARGIN", "permissions": EXPECTED_PERMISSIONS}
+    try:
+        _gate1_permissions(wrong_type)
+        _fail("gate1 did not raise on wrong accountType")
+    except CycleGateError as e:
+        print(f"OK    gate1 rejects wrong accountType: {str(e)[:60]}")
+
+    # Extra permission → raise
+    extra_perm = {"accountType": EXPECTED_ACCOUNT_TYPE, "permissions": EXPECTED_PERMISSIONS + ["TRADE_ENABLED"]}
+    try:
+        _gate1_permissions(extra_perm)
+        _fail("gate1 did not raise on extra permission")
+    except CycleGateError as e:
+        print(f"OK    gate1 rejects extra permissions: {str(e)[:60]}")
+
+
+def test_gate2_sanity_bound() -> None:
+    # Trade at 9% → OK
+    trade_ok = PaperTrade("2026-06-01", "buy", "BTC", 9.0, "sma", "sma cross", [], True)
+    try:
+        _gate2_sanity_bound([trade_ok], 100.0)
+        print("OK    gate2 allows 9% trade on 100 EUR portfolio")
+    except CycleGateError:
+        _fail("gate2 raised on 9% trade (should be under cap)")
+
+    # Trade at 11% → fail
+    trade_over = PaperTrade("2026-06-01", "buy", "BTC", 11.0, "sma", "sma cross", [], True)
+    try:
+        _gate2_sanity_bound([trade_over], 100.0)
+        _fail("gate2 did not raise on 11% trade")
+    except CycleGateError as e:
+        print(f"OK    gate2 rejects 11% trade: {str(e)[:60]}")
+
+
+def test_gate3_state_file() -> None:
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        from datetime import date
+        state_path = Path(td) / "phase1_clean_cycles.json"
+
+        state = p1.load(state_path)
+        assert state.clean_count == 0
+        assert state.consecutive_failures == 0
+
+        for i in range(3):
+            state.record_clean(date(2026, 6, i + 1))
+        p1.save(state, state_path)
+        reloaded = p1.load(state_path)
+        assert reloaded.clean_count == 3, f"expected 3, got {reloaded.clean_count}"
+
+        state.record_failure(date(2026, 6, 4), "test failure 1")
+        assert state.consecutive_failures == 1
+        assert not state.should_auto_pause
+
+        state.record_failure(date(2026, 6, 5), "test failure 2")
+        assert state.consecutive_failures == 2
+        assert state.should_auto_pause
+
+        print("OK    gate3 state file: clean counter, failure counter, auto-pause trigger")
+
+
+def test_full_cycle_with_fixtures(tmp: Path) -> None:
+    import scripts.binance.cycle as cycle_mod
+    original_data_dir = cycle_mod.DATA_DIR
+    original_state_file = cycle_mod.STATE_FILE
+    cycle_mod.DATA_DIR = tmp
+    cycle_mod.STATE_FILE = tmp / "phase1_clean_cycles.json"
+    try:
+        result = run(fixtures_dir=FIXTURES, run_date=date(2026, 6, 1))
+    finally:
+        cycle_mod.DATA_DIR = original_data_dir
+        cycle_mod.STATE_FILE = original_state_file
+
+    snap = result["snapshot"]
+    if snap["phase"] != "read_only":
+        _fail(f"snapshot phase wrong: {snap['phase']}")
+    if not snap["eur_portfolio"]:
+        _fail("eur_portfolio empty")
+    if "telegram_text" not in result["digest"]:
+        _fail("digest missing telegram_text")
+    print("OK    full cycle ran, snapshot phase=read_only, digest produced")
+    print("---- DIGEST TEXT ----")
+    print(result["digest"]["telegram_text"])
+    print("---------------------")
+
+
 def main() -> None:
     import tempfile
     with tempfile.TemporaryDirectory() as td:
@@ -118,6 +217,9 @@ def main() -> None:
         test_risk_daily_budget()
         test_risk_position_limit()
         test_strategy_deterministic()
+        test_gate1_permissions()
+        test_gate2_sanity_bound()
+        test_gate3_state_file()
         test_full_cycle_with_fixtures(tmp)
         print("ALL SMOKE TESTS PASSED")
 
