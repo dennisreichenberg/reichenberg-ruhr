@@ -74,24 +74,39 @@ def save(state: Phase1State, state_path: Path) -> None:
     state_path.write_text(json.dumps(asdict(state), indent=2, ensure_ascii=False), encoding="utf-8")
 
 
-def pause_routine(routine_id: str = ROUTINE_ID) -> bool:
-    """PATCH the Paperclip routine to enabled=false.
+def _paperclip_auth() -> tuple[str, str]:
+    """Return (base_url, bearer_token) for Paperclip REST calls.
 
-    Uses PAPERCLIP_API_URL + PAPERCLIP_API_TOKEN env vars if set,
-    otherwise falls back to localhost:3737.
-    Returns True if the PATCH succeeded.
+    Reads PAPERCLIP_API_URL (default http://localhost:3100) and the bearer
+    from PAPERCLIP_API_TOKEN or PAPERCLIP_API_KEY (Backend-Agent adapter env
+    uses the latter; both are accepted so the script works in either context).
+    """
+    base_url = os.environ.get("PAPERCLIP_API_URL", "http://localhost:3100")
+    token = os.environ.get("PAPERCLIP_API_TOKEN") or os.environ.get("PAPERCLIP_API_KEY", "")
+    return base_url, token
+
+
+def pause_routine(routine_id: str = ROUTINE_ID) -> bool:
+    """PATCH the Paperclip routine to status=paused.
+
+    Returns True if the PATCH succeeded AND the routine actually moved
+    out of `active`. A 200 response alone is not sufficient because the
+    server silently no-ops on unknown fields (`{"enabled": false}` returns
+    200 but leaves status unchanged -- only `{"status": "paused"}` works).
     """
     try:
-        import urllib.request, urllib.parse
-        base_url = os.environ.get("PAPERCLIP_API_URL", "http://localhost:3737")
-        token = os.environ.get("PAPERCLIP_API_TOKEN", "")
+        import urllib.request
+        base_url, token = _paperclip_auth()
         url = f"{base_url}/api/routines/{routine_id}"
-        payload = json.dumps({"enabled": False}).encode()
+        payload = json.dumps({"status": "paused"}).encode()
         req = urllib.request.Request(url, data=payload, method="PATCH")
         req.add_header("Content-Type", "application/json")
         if token:
             req.add_header("Authorization", f"Bearer {token}")
         with urllib.request.urlopen(req, timeout=10) as resp:
-            return resp.status < 300
+            if resp.status >= 300:
+                return False
+            body = json.loads(resp.read().decode() or "{}")
+            return body.get("status") == "paused"
     except Exception:
         return False
