@@ -14,6 +14,7 @@ Portfolio website and tool ecosystem for Dennis Reichenberg.
 | vllm-config | Hardware-aware vLLM configuration | [GitHub](https://github.com/dennisreichenberg/vllm-config) |
 | vllm-monitor | Real-time dashboard for vLLM | [GitHub](https://github.com/dennisreichenberg/vllm-monitor) |
 | model-manager | Local LLM model lifecycle manager | [GitHub](https://github.com/dennisreichenberg/model-manager) |
+| llm-usage | Historical request and cost accounting across all LLM backends | [GitHub](https://github.com/dennisreichenberg/llm-usage) |
 
 ## Local development
 

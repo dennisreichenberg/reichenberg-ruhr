@@ -1,0 +1,64 @@
+# llm-usage default pricing table.
+#
+# Prices are USD per 1,000,000 tokens, split into input (prompt) and output
+# (completion). Local backends are free -- they are listed under "backends"
+# with zero cost so any local model resolves to 0 without per-model entries.
+#
+# Resolution order when estimating a request cost:
+#   1. exact model name under "models"
+#   2. model name with provider prefix stripped (e.g. "openai/gpt-4o" -> "gpt-4o")
+#   3. backend default under "backends"
+#   4. global "default"
+#
+# Override at runtime with:  llm-usage ingest --pricing my-prices.yaml
+# Cloud prices below are approximate list prices and meant as a starting point;
+# adjust them to your actual contracts.
+
+default:
+  input: 0.0
+  output: 0.0
+
+backends:
+  ollama:
+    input: 0.0
+    output: 0.0
+  vllm:
+    input: 0.0
+    output: 0.0
+
+models:
+  # --- OpenAI ---------------------------------------------------------------
+  gpt-4o:
+    input: 2.50
+    output: 10.00
+  gpt-4o-mini:
+    input: 0.15
+    output: 0.60
+  gpt-4.1:
+    input: 2.00
+    output: 8.00
+  gpt-4.1-mini:
+    input: 0.40
+    output: 1.60
+  o3-mini:
+    input: 1.10
+    output: 4.40
+
+  # --- Anthropic ------------------------------------------------------------
+  claude-3-5-sonnet:
+    input: 3.00
+    output: 15.00
+  claude-3-5-haiku:
+    input: 0.80
+    output: 4.00
+  claude-3-opus:
+    input: 15.00
+    output: 75.00
+
+  # --- Google ---------------------------------------------------------------
+  gemini-1.5-pro:
+    input: 1.25
+    output: 5.00
+  gemini-1.5-flash:
+    input: 0.075
+    output: 0.30
