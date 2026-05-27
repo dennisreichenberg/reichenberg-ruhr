@@ -175,6 +175,33 @@ const categories: Category[] = [
         pypiUrl: null,
         tags: ['Python', 'Evaluation', 'Benchmark', 'CLI', 'Local LLM'],
       },
+      {
+        name: 'prompt-vault',
+        tagline: 'Versionierte Prompt-Library',
+        description: 'Lokale Prompt-Library mit Jinja2-Templating und Versionierung. Prompts zentral pflegen und in mehreren CLI-Tools teilen statt sie ueberall zu duplizieren.',
+        install: null,
+        githubUrl: 'https://github.com/dennisreichenberg/weiterentwicklung/tree/main/prompt-vault',
+        pypiUrl: null,
+        tags: ['Python', 'Prompts', 'Jinja2', 'CLI', 'Local LLM'],
+      },
+      {
+        name: 'llm-gateway',
+        tagline: 'OpenAI-kompatibler Proxy',
+        description: 'Lokaler OpenAI-kompatibler Proxy mit Model-Prefix-Routing und Kosten-Tracking ueber mehrere Provider hinweg.',
+        install: null,
+        githubUrl: 'https://github.com/dennisreichenberg/weiterentwicklung/tree/main/llm-gateway',
+        pypiUrl: null,
+        tags: ['Python', 'OpenAI', 'Proxy', 'CLI', 'Cost-Tracking'],
+      },
+      {
+        name: 'repo-context',
+        tagline: 'Codebase-zu-Prompt-Bundler',
+        description: 'Buendelt eine Codebase in eine einzige Markdown-Datei fuer LLM-Prompts. Filter, Glob-Pattern und Token-Budgetierung.',
+        install: null,
+        githubUrl: 'https://github.com/dennisreichenberg/weiterentwicklung/tree/main/repo-context',
+        pypiUrl: null,
+        tags: ['Python', 'Code-Context', 'CLI', 'Local LLM', 'Markdown'],
+      },
     ],
   },
 ];
@@ -222,7 +249,7 @@ const categories: Category[] = [
           </a>
 
           <h1 class="section-title">Tools</h1>
-          <p class="section-subtitle">14 Open-Source CLI-Tools fuer lokale KI-Infrastruktur</p>
+          <p class="section-subtitle">17 Open-Source CLI-Tools fuer lokale KI-Infrastruktur</p>
           <p class="intro">
             Diese Tools entstanden aus dem Alltag mit selbst gehosteten KI-Systemen.
             Alle sind auf <a href="https://github.com/dennisreichenberg" target="_blank" rel="noopener">GitHub</a> verfuegbar.
