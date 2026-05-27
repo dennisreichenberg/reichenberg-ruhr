@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from ollama_monitor.api import ModelInfo, OllamaClient, OllamaStatus
+from ollama_monitor.api import ModelInfo, OllamaClient
 from ollama_monitor.config import Config
 
 MOCK_PS_RESPONSE = {

@@ -32,7 +32,7 @@ class TestOllamaMonitorApp:
     @pytest.mark.asyncio
     async def test_app_mounts(self, config):
         app = OllamaMonitorApp(config=config)
-        async with app.run_test(size=(120, 40)) as pilot:
+        async with app.run_test(size=(120, 40)):
             assert app.title == "ollama-monitor"
             assert app.query_one("#status-bar") is not None
 
@@ -52,7 +52,7 @@ class TestOllamaMonitorApp:
         with patch.object(
             app._client, "get_running_models", new_callable=AsyncMock, return_value=MOCK_STATUS
         ):
-            async with app.run_test(size=(120, 40)) as pilot:
+            async with app.run_test(size=(120, 40)):
                 await app._poll()
                 from ollama_monitor.widgets import ModelsTable
 

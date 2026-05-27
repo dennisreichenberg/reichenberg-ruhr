@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from unittest.mock import MagicMock, patch
 
-from ollama_monitor.gpu import GpuInfo, SystemMetrics, get_system_metrics
+from ollama_monitor.gpu import GpuInfo, get_system_metrics
 
 NVIDIA_SMI_OUTPUT = """\
 NVIDIA GeForce RTX 4090, 8192, 24576, 45
@@ -12,7 +12,9 @@ NVIDIA GeForce RTX 3090, 4096, 24576, 30
 
 class TestGpuInfo:
     def test_memory_format(self):
-        gpu = GpuInfo(name="RTX 4090", memory_used_mb=8192, memory_total_mb=24576, utilization_pct=45)
+        gpu = GpuInfo(
+            name="RTX 4090", memory_used_mb=8192, memory_total_mb=24576, utilization_pct=45
+        )
         assert gpu.memory_used_gb == "8.0"
         assert gpu.memory_total_gb == "24.0"
 
