@@ -15,6 +15,7 @@ Portfolio website and tool ecosystem for Dennis Reichenberg.
 | vllm-monitor | Real-time dashboard for vLLM | [GitHub](https://github.com/dennisreichenberg/vllm-monitor) |
 | model-manager | Local LLM model lifecycle manager | [GitHub](https://github.com/dennisreichenberg/model-manager) |
 | llm-usage | Historical request and cost accounting across all LLM backends | [GitHub](https://github.com/dennisreichenberg/llm-usage) |
+| llm-cache | Semantic response cache in front of OpenAI-compatible LLM gateways | [GitHub](https://github.com/dennisreichenberg/llm-cache) |
 
 ## Local development
 
