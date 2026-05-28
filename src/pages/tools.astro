@@ -166,6 +166,33 @@ const categories: Category[] = [
         pypiUrl: null,
         tags: ['Python', 'Evaluation', 'Benchmark', 'CLI', 'Local LLM'],
       },
+      {
+        name: 'ai-stack',
+        tagline: 'Lifecycle-Supervisor fuer den lokalen AI-Stack',
+        description: 'Startet, stoppt und ueberwacht den kompletten lokalen AI-Stack (Ollama, vLLM, ollama-proxy/llm-gateway, n8n) als ein Kommando. Health-Checks und Auto-Restart eingebaut.',
+        install: null,
+        githubUrl: 'https://github.com/dennisreichenberg/ai-stack',
+        pypiUrl: null,
+        tags: ['Python', 'Ollama', 'vLLM', 'CLI', 'Ops'],
+      },
+      {
+        name: 'llm-usage',
+        tagline: 'Cost & Usage Tracking fuer alle LLM-Backends',
+        description: 'Historisches Request- und Cost-Accounting fuer lokale (Ollama, vLLM) und Cloud-LLMs (LiteLLM). Zeigt wo Tokens und Geld hingehen.',
+        install: 'pip install llm-usage',
+        githubUrl: 'https://github.com/dennisreichenberg/llm-usage',
+        pypiUrl: 'https://pypi.org/project/llm-usage/',
+        tags: ['Python', 'LLM', 'Cost', 'Observability', 'CLI'],
+      },
+      {
+        name: 'rag-eval',
+        tagline: 'Eval fuer lokale RAG-Pipelines',
+        description: 'Bewertet lokale RAG-Pipelines mit recall@k, MRR, BLEU/ROUGE und LLM-as-Judge. Setzt regressions-fest auf local-rag auf.',
+        install: null,
+        githubUrl: 'https://github.com/dennisreichenberg/rag-eval',
+        pypiUrl: null,
+        tags: ['Python', 'RAG', 'Evaluation', 'CLI', 'Local LLM'],
+      },
     ],
   },
 ];
@@ -213,7 +240,7 @@ const categories: Category[] = [
           </a>
 
           <h1 class="section-title">Tools</h1>
-          <p class="section-subtitle">14 Open-Source CLI-Tools fuer lokale KI-Infrastruktur</p>
+          <p class="section-subtitle">17 Open-Source CLI-Tools fuer lokale KI-Infrastruktur</p>
           <p class="intro">
             Diese Tools entstanden aus dem Alltag mit selbst gehosteten KI-Systemen.
             Alle sind auf <a href="https://github.com/dennisreichenberg" target="_blank" rel="noopener">GitHub</a> verfuegbar.
