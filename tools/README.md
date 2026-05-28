@@ -61,3 +61,50 @@ Groesse, raeumt wieder auf und testet die Namens-Validierung. Kein echtes Secret
 ```powershell
 .\selftest-DepositVpsKey.ps1 -IdentityFile <pfad-zum-test-key>
 ```
+
+---
+
+# Deposit-LocalEnv.ps1 -- Env-Var lokal sicher setzen
+
+Setzt eine Umgebungsvariable im Windows-User-Scope per verdeckter Eingabe. Use-
+Case: Der CFO-Agent braucht `BINANCE_API_KEY` und `BINANCE_API_SECRET` als
+Env-Vars. Dennis setzt sie hiermit selbst -- kein Wert wandert je in Datei, Log
+oder PowerShell-History, kein Agent sieht den Klartext.
+
+## Bedienanleitung fuer Dennis (kurz)
+
+1. PowerShell oeffnen, in den `tools`-Ordner wechseln.
+2. Befehl ausfuehren (Name nach Env-Var-Konvention: Buchstaben/Ziffern/`_`):
+
+   ```powershell
+   .\Deposit-LocalEnv.ps1 -VarName BINANCE_API_KEY
+   .\Deposit-LocalEnv.ps1 -VarName BINANCE_API_SECRET
+   ```
+
+3. Wert eingeben (verdeckt) und Enter. Skript meldet nur Name + Zeichen-Laenge.
+4. Neue PowerShell-Session starten, damit Agenten den Wert via Vererbung sehen.
+
+## Sicherheit (wie der Wert geschuetzt wird)
+
+- Eingabe verdeckt via `Read-Host -AsSecureString`.
+- Klartext entsteht nur transient (BSTR -> String); BSTR wird per
+  `ZeroFreeBSTR` genullt, der String-Slot wird auf `$null` gesetzt, danach
+  `[GC]::Collect()`.
+- Schreibziel ist der User-Scope (`HKCU\Environment`) via
+  `[Environment]::SetEnvironmentVariable($VarName, $plain, 'User')` --
+  kein Klartext-File auf der Platte.
+- VarName wird gegen `^[A-Za-z_][A-Za-z0-9_]*$` geprueft (Env-Var-Konvention,
+  Schutz gegen Pfad-/Injection-Tricks).
+- Ausgabe enthaelt nur `<VarName> gesetzt (Laenge: N Zeichen). ...` -- nie
+  den Wert.
+
+## Selbsttest
+
+`selftest-DepositLocalEnv.ps1` setzt eine Dummy-Variable
+(`PAPERCLIP_SELFTEST_TMP=hallo-1234`), liest sie via
+`[Environment]::GetEnvironmentVariable(...,'User')` zurueck, raeumt wieder auf
+und prueft die Namens-Validierung (positiv und negativ).
+
+```powershell
+.\selftest-DepositLocalEnv.ps1
+```
