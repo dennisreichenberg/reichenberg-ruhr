@@ -47,6 +47,15 @@ const categories: Category[] = [
         tags: ['Python', 'Ollama', 'TUI', 'Chat', 'CLI'],
       },
       {
+        name: 'ollama-monitor',
+        tagline: 'Echtzeit-Dashboard fuer Ollama-Inferenz',
+        description: 'TUI-Dashboard fuer Ollama-Monitoring in Echtzeit: laufende Modelle, VRAM-/RAM-Auslastung, Durchsatz und Latenzen direkt im Terminal.',
+        install: null,
+        githubUrl: 'https://github.com/dennisreichenberg/reichenberg-ruhr/tree/main/ollama-monitor',
+        pypiUrl: null,
+        tags: ['Python', 'Ollama', 'TUI', 'Monitoring', 'CLI'],
+      },
+      {
         name: 'devlog',
         tagline: 'Arbeitslog mit KI-Zusammenfassungen',
         description: 'Taeglich in Sekunden den Arbeitsfortschritt festhalten. Ein lokales LLM schreibt daraus woechentliche Zusammenfassungen, Standup-Updates und PR-Beschreibungen.',
@@ -185,6 +194,15 @@ const categories: Category[] = [
         tags: ['Python', 'Ollama', 'vLLM', 'Cost', 'CLI'],
       },
       {
+        name: 'llm-cache',
+        tagline: 'Semantischer Response-Cache fuer LLM-Gateways',
+        description: 'Transparenter Cache vor OpenAI-kompatiblen LLM-Gateways (ollama-proxy, llm-gateway, Ollama). Identische oder semantisch aehnliche Prompts liefern die gecachte Antwort statt erneuter Inferenz.',
+        install: null,
+        githubUrl: 'https://github.com/dennisreichenberg/llm-cache',
+        pypiUrl: null,
+        tags: ['Python', 'Cache', 'Proxy', 'Ollama', 'vLLM'],
+      },
+      {
         name: 'rag-eval',
         tagline: 'Evaluation fuer lokale RAG-Pipelines',
         description: 'Recall@k, MRR, BLEU/ROUGE und LLM-as-Judge in einem CLI-Tool. Ideal fuer Regressionstests, wenn Retriever, Chunking oder Modell ausgetauscht werden.',
@@ -240,7 +258,7 @@ const categories: Category[] = [
           </a>
 
           <h1 class="section-title">Tools</h1>
-          <p class="section-subtitle">17 Open-Source CLI-Tools fuer lokale KI-Infrastruktur</p>
+          <p class="section-subtitle">19 Open-Source CLI-Tools fuer lokale KI-Infrastruktur</p>
           <p class="intro">
             Diese Tools entstanden aus dem Alltag mit selbst gehosteten KI-Systemen.
             Alle sind auf <a href="https://github.com/dennisreichenberg" target="_blank" rel="noopener">GitHub</a> verfuegbar.
