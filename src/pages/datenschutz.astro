@@ -1,0 +1,156 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const title = 'Datenschutz – Dennis Reichenberg';
+const description = 'Datenschutzerklaerung fuer die Website und den KI-News-Newsletter von Dennis Reichenberg.';
+const url = 'https://reichenberg.ruhr/datenschutz';
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Dennis Reichenberg" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={url} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="de_DE" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <Nav />
+    <main>
+      <section id="datenschutz" class="impressum-section">
+        <div class="container">
+          <h1 class="section-title">Datenschutzerklärung</h1>
+          <p class="section-subtitle">Informationen gemäß Art. 13 DSGVO</p>
+
+          <div class="impressum-content">
+            <h2>Verantwortlicher</h2>
+            <p>
+              <strong>Dennis Reichenberg</strong><br />
+              Auf der Heide 14<br />
+              45473 Mülheim an der Ruhr<br />
+              E-Mail: <a href="mailto:kontakt@reichenberg.ruhr">kontakt@reichenberg.ruhr</a>
+            </p>
+
+            <h2>Hosting dieser Website</h2>
+            <p>
+              Diese Website wird über GitHub Pages (GitHub, Inc., USA) ausgeliefert. Beim Aufruf
+              werden technisch notwendige Daten (z.&nbsp;B. IP-Adresse, Zeitpunkt, abgerufene Seite)
+              in Server-Logs verarbeitet. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f
+              DSGVO (berechtigtes Interesse am sicheren Betrieb). Zudem werden Schriftarten von
+              Google Fonts nachgeladen; dabei wird Ihre IP-Adresse an Google übermittelt.
+            </p>
+
+            <h2>KI-News-Newsletter</h2>
+            <h3>Art und Umfang der Verarbeitung</h3>
+            <p>
+              Bei der Anmeldung zum Newsletter wird Ihre E-Mail-Adresse sowie der Zeitpunkt der
+              An- und Abmeldung gespeichert. Die Anmeldung erfolgt im Double-Opt-in-Verfahren:
+              Sie erhalten zunächst eine Bestätigungsmail; erst nach Klick auf den
+              Bestätigungslink sind Sie angemeldet.
+            </p>
+            <h3>Zweck und Rechtsgrundlage</h3>
+            <p>
+              Die Daten werden ausschließlich für den Versand des täglichen KI-News-Newsletters
+              verwendet. Rechtsgrundlage ist Ihre Einwilligung (Art.&nbsp;6 Abs.&nbsp;1
+              lit.&nbsp;a DSGVO). Sie können die Einwilligung jederzeit widerrufen — über den
+              Abmeldelink in jeder Ausgabe oder per E-Mail an den Verantwortlichen. Nach der
+              Abmeldung werden Ihre Daten aus dem Verteiler gelöscht.
+            </p>
+            <h3>Verarbeitung und Empfänger</h3>
+            <p>
+              Die Verwaltung der Abonnenten erfolgt mit der Open-Source-Software listmonk auf
+              einem selbst betriebenen Server in einem deutschen Rechenzentrum. Der Versand der
+              E-Mails erfolgt über Google Mail (Google Ireland Ltd.); dabei wird Ihre
+              E-Mail-Adresse an Google übermittelt. Eine Weitergabe an sonstige Dritte findet
+              nicht statt; ein Tracking des Öffnungs- oder Klickverhaltens findet nicht statt.
+            </p>
+
+            <h2>Ihre Rechte</h2>
+            <p>
+              Sie haben das Recht auf Auskunft (Art.&nbsp;15), Berichtigung (Art.&nbsp;16),
+              Löschung (Art.&nbsp;17), Einschränkung der Verarbeitung (Art.&nbsp;18),
+              Datenübertragbarkeit (Art.&nbsp;20) und Widerspruch (Art.&nbsp;21 DSGVO) sowie
+              ein Beschwerderecht bei einer Datenschutz-Aufsichtsbehörde, in NRW: Landesbeauftragte
+              für Datenschutz und Informationsfreiheit Nordrhein-Westfalen.
+            </p>
+
+            <p class="impressum-note">
+              <em>Hinweis: Diese Datenschutzerklärung ersetzt keine individuelle Rechtsberatung.</em>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .impressum-section {
+    padding: 4rem 0 6rem;
+    min-height: calc(100vh - 200px);
+  }
+
+  .impressum-content {
+    max-width: 680px;
+    margin-top: 3rem;
+  }
+
+  .impressum-content h2 {
+    color: #e8e4dc;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .impressum-content h3 {
+    color: #b5b0a6;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .impressum-content p {
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .impressum-content a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .impressum-content a:hover {
+    text-decoration: underline;
+  }
+
+  .impressum-note {
+    margin-top: 2rem;
+    font-size: 0.85rem !important;
+    color: var(--color-text-muted);
+    opacity: 0.7;
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+const FORM_ACTION = 'https://news.reichenberg.ruhr/subscription/form';
+const LIST_UUID = '888324d2-1852-4e46-b06d-7e6f4e2c3f9c';
+---
+
+<section class="section" id="newsletter" data-id="#05 / newsletter">
+  <div class="container">
+    <span class="eyebrow" style="margin-bottom: 24px;">05 — Newsletter</span>
+    <h2 class="nl-headline">Täglich die viralsten <em>KI-News</em> im Postfach</h2>
+    <p class="nl-sub">
+      Jeden Morgen kuratiert: neue Modelle, Tools &amp; Repos, Agenten &amp; MCP,
+      Self-Hosting &amp; RAG — auf Deutsch, ohne Füllmaterial. Abmeldung jederzeit
+      mit einem Klick.
+    </p>
+
+    <form class="nl-form" action={FORM_ACTION} method="post">
+      <input type="hidden" name="nonce" />
+      <input type="hidden" name="l" value={LIST_UUID} />
+      <span class="nl-ps1" aria-hidden="true">subscribe --email</span>
+      <input
+        class="nl-input"
+        type="email"
+        name="email"
+        required
+        placeholder="du@beispiel.de"
+        aria-label="E-Mail-Adresse"
+      />
+      <button class="btn btn-primary" type="submit">abonnieren</button>
+    </form>
+
+    <p class="nl-note">
+      Double-Opt-in: Du bekommst zuerst eine Bestätigungsmail. Abmeldung jederzeit über den
+      Link in jeder Ausgabe. Details in der <a href="/datenschutz">Datenschutzerklärung</a>.
+    </p>
+  </div>
+</section>
+
+<style>
+  .nl-headline {
+    font-size: var(--h2-size);
+    font-weight: var(--h2-weight);
+    letter-spacing: var(--h2-tracking);
+    margin-top: 18px;
+  }
+  .nl-headline em { color: var(--accent); font-style: normal; }
+  .nl-sub {
+    color: var(--muted);
+    max-width: 560px;
+    margin-top: 14px;
+  }
+  .nl-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    max-width: 640px;
+  }
+  .nl-ps1 {
+    color: var(--accent);
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .nl-input {
+    font: inherit;
+    flex: 1 1 200px;
+    min-width: 0;
+    background: var(--bg);
+    color: var(--ink);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+  }
+  .nl-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .nl-note {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 12px;
+  }
+  .nl-note a { color: var(--muted); text-decoration: underline; }
+  .nl-note a:hover { color: var(--accent); }
+</style>

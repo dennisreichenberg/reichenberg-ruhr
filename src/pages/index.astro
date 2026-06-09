@@ -5,6 +5,7 @@ import About from '../components/About.astro';
 import TechStack from '../components/TechStack.astro';
 import Projects from '../components/Projects.astro';
 import Contact from '../components/Contact.astro';
+import Newsletter from '../components/Newsletter.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
@@ -104,6 +105,7 @@ const url = 'https://reichenberg.ruhr/';
       <TechStack />
       <Projects />
       <Contact />
+      <Newsletter />
     </main>
     <Footer />
 
@@ -170,7 +172,7 @@ const url = 'https://reichenberg.ruhr/';
     <script>
       /* ---------- Nav active highlight on scroll ---------- */
       const navLinks = document.querySelectorAll('.nav-links a[data-nav]');
-      const sections = ['about', 'stack', 'projects', 'contact'].map(id => document.getElementById(id));
+      const sections = ['about', 'stack', 'projects', 'contact', 'newsletter'].map(id => document.getElementById(id));
 
       /* ---------- Status bar ---------- */
       const sbSection = document.getElementById('sb-section');
@@ -252,6 +254,7 @@ const url = 'https://reichenberg.ruhr/';
         document.getElementById('stack'),
         document.getElementById('projects'),
         document.getElementById('contact'),
+        document.getElementById('newsletter'),
       ].filter(Boolean) as HTMLElement[];
 
       function currentAnchorIndex() {
@@ -380,11 +383,12 @@ Erreichbar unter kontakt@reichenberg.ruhr · Glück auf.`,
 drwxr-xr-x  dennis  ruhrgebiet   stack/
 drwxr-xr-x  dennis  ruhrgebiet   projects/
 drwxr-xr-x  dennis  ruhrgebiet   contact/
+drwxr-xr-x  dennis  ruhrgebiet   newsletter/
 -rw-r--r--  dennis  ruhrgebiet   readme.md`,
 
         cat: (arg) => {
-          const map: Record<string, string> = { about: 'about', stack: 'stack', projects: 'projects', contact: 'contact' };
-          if (!arg) return { err: 'cat: missing operand. Versuche: cat about | stack | projects | contact' };
+          const map: Record<string, string> = { about: 'about', stack: 'stack', projects: 'projects', contact: 'contact', newsletter: 'newsletter' };
+          if (!arg) return { err: 'cat: missing operand. Versuche: cat about | stack | projects | contact | newsletter' };
           const target = arg.replace(/\/+$/, '');
           if (!map[target]) return { err: `cat: ${arg}: file not found` };
           scrollToId(target);
@@ -392,6 +396,7 @@ drwxr-xr-x  dennis  ruhrgebiet   contact/
         },
 
         projects: () => { scrollToId('projects'); return 'cd projects/ — siehe oben'; },
+        newsletter: () => { scrollToId('newsletter'); return 'cd newsletter/ — täglich KI-News abonnieren'; },
         contact:  () => { scrollToId('contact');  return 'cd contact/ — schreib mir gern'; },
         about:    () => { scrollToId('about');    return 'cd about/ — siehe oben'; },
         stack:    () => { scrollToId('stack');    return 'cd stack/ — siehe oben'; },
