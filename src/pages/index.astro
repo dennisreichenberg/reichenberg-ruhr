@@ -85,6 +85,8 @@ const url = 'https://reichenberg.ruhr/';
       setTimeout(() => document.documentElement.removeAttribute('data-booting'), 3000);
     </script>
 
+    <a href="#main" class="skip-link">Zum Inhalt springen</a>
+
     <!-- SESSION BANNER -->
     <div class="term-session" aria-hidden="true">
       <div class="term-session-inner">
@@ -99,7 +101,7 @@ const url = 'https://reichenberg.ruhr/';
     </div>
 
     <Nav />
-    <main>
+    <main id="main">
       <Hero />
       <About />
       <TechStack />

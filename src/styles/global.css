@@ -1095,3 +1095,54 @@ html[data-booting="1"] body { background: #050504; }
   .help-box { padding: 22px; }
   .help-grid { grid-template-columns: 110px 1fr; gap: 8px 12px; font-size: 12px; }
 }
+
+/* ============================================================
+   ACCESSIBILITY — focus, skip-link, reduced motion
+   (additive only; no change to default visual appearance)
+   ============================================================ */
+
+/* Visible keyboard focus ring on every interactive element.
+   Uses :focus-visible so mouse clicks stay clean. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible,
+.sb-section:focus-visible,
+.contact-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+/* The CLI input zeroes its outline (line ~906) — restore a clear ring. */
+.cli-input-row input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Skip-to-content link: off-screen until focused via keyboard. */
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -56px;
+  z-index: 9500;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 14px;
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: 8px; }
+
+/* Respect the user's OS "reduce motion" setting: no typewriter,
+   no blinking cursor, no pulsing dot, no boot/scroll animation. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  html { scroll-behavior: auto; }
+  .term-prompt .cmd { width: 16ch !important; }
+  .term-prompt .cursor { background: transparent; }
+}
