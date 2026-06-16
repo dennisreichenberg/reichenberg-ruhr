@@ -1090,8 +1090,22 @@ html[data-booting="1"] body { background: #050504; }
 }
 
 @media (max-width: 440px) {
-  .nav-logo { font-size: 12px; }
-  .nav-links { display: none; }
+  .nav-logo { font-size: 12px; flex-shrink: 0; }
+  /* Keep the nav usable on tiny screens: single scrollable row
+     instead of hiding the links entirely. */
+  .nav-links {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a.active::after { bottom: -16px; }
   .help-box { padding: 22px; }
   .help-grid { grid-template-columns: 110px 1fr; gap: 8px 12px; font-size: 12px; }
 }
