@@ -571,7 +571,7 @@ h2 em { font-style: normal; color: var(--accent); }
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-.project-card-title::before { content: "$ pip show "; color: var(--muted); font-weight: 400; }
+.project-card-title::before { content: "▸ "; color: var(--accent); font-weight: 400; }
 
 .project-card-desc {
   font-size: 13px;
@@ -581,7 +581,7 @@ h2 em { font-style: normal; color: var(--accent); }
   padding: 18px;
   border-bottom: 1px dashed var(--border);
 }
-.project-card-desc::before { content: "Summary: "; color: var(--accent); font-weight: 500; }
+.project-card-desc::before { content: "// "; color: var(--accent); font-weight: 500; }
 
 .project-badges { display: flex; gap: 6px; }
 .badge {
