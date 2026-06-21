@@ -1,6 +1,7 @@
 ---
 const FORM_ACTION = 'https://news.reichenberg.ruhr/subscription/form';
-const LIST_UUID = '888324d2-1852-4e46-b06d-7e6f4e2c3f9c';
+const DE_LIST_UUID = '888324d2-1852-4e46-b06d-7e6f4e2c3f9c';
+const EN_LIST_UUID = 'b2bb7fb3-106f-42b3-80b5-72c30131bc21';
 ---
 
 <section class="section" id="newsletter" data-id="#05 / newsletter">
@@ -9,13 +10,30 @@ const LIST_UUID = '888324d2-1852-4e46-b06d-7e6f4e2c3f9c';
     <h2 class="nl-headline">Täglich die viralsten <em>KI-News</em> im Postfach</h2>
     <p class="nl-sub">
       Jeden Morgen kuratiert: neue Modelle, Tools &amp; Repos, Agenten &amp; MCP,
-      Self-Hosting &amp; RAG — auf Deutsch, ohne Füllmaterial. Abmeldung jederzeit
-      mit einem Klick.
+      Self-Hosting &amp; RAG — ohne Füllmaterial, auf Deutsch oder Englisch /
+      available in German or English. Abmeldung jederzeit mit einem Klick.
     </p>
 
     <form class="nl-form" action={FORM_ACTION} method="post">
       <input type="hidden" name="nonce" />
-      <input type="hidden" name="l" value={LIST_UUID} />
+
+      <fieldset class="nl-lang">
+        <legend class="nl-lang-legend">
+          <span class="nl-ps1" aria-hidden="true">--lang</span>
+          Sprache / language
+        </legend>
+        <div class="nl-lang-options">
+          <label class="nl-lang-option">
+            <input type="radio" name="l" value={DE_LIST_UUID} checked />
+            <span>Deutsch</span>
+          </label>
+          <label class="nl-lang-option">
+            <input type="radio" name="l" value={EN_LIST_UUID} />
+            <span>English</span>
+          </label>
+        </div>
+      </fieldset>
+
       <span class="nl-ps1" aria-hidden="true">subscribe --email</span>
       <input
         class="nl-input"
@@ -65,6 +83,70 @@ const LIST_UUID = '888324d2-1852-4e46-b06d-7e6f4e2c3f9c';
     font-size: 13px;
     flex-shrink: 0;
   }
+  .nl-lang {
+    flex: 1 1 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    min-width: 0;
+  }
+  .nl-lang-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .nl-lang-options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 18px;
+  }
+  .nl-lang-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .nl-lang-option input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--bg);
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  .nl-lang-option input[type="radio"]::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: scale(0);
+    transition: transform 0.12s ease;
+  }
+  .nl-lang-option input[type="radio"]:checked {
+    border-color: var(--accent);
+  }
+  .nl-lang-option input[type="radio"]:checked::before {
+    transform: scale(1);
+  }
+  .nl-lang-option input[type="radio"]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .nl-lang-option:hover { color: var(--accent); }
   .nl-input {
     font: inherit;
     flex: 1 1 200px;
